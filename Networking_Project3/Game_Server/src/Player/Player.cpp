@@ -9,6 +9,7 @@ Player::Player()
 void Player::CreateInstance(Model& model)
 {
     this->model->CopyFromModel(model);
+    this->phyObj->Initialize(this->model, SPHERE, DYNAMIC);
 }
 
 Transform* Player::GetTransform()
@@ -22,6 +23,7 @@ void Player::Start()
 
 void Player::Update(float deltaTime)
 {
+    Debugger::Print("PlayerPos : ", model->transform.position);
 }
 
 void Player::AddToRendererAndPhysics(Renderer* renderer, Shader* shader, PhysicsEngine* physicsEngine)

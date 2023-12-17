@@ -48,7 +48,7 @@ private:
 
 	int clientInfoLength = sizeof(sockaddr_in);
 
-	std::unordered_map<int, sockaddr_in*> listOfClients;
+	std::unordered_map<int, sockaddr_in> listOfClients;
 	std::queue<ServerToClientMessages> listOfMessagesToSend;
 
 	void HandleCommandRecv();

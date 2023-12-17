@@ -12,10 +12,13 @@ Player* PlayerFactory::CreatePlayer()
     Player* newPlayer = new Player();
     newPlayer->CreateInstance(*player);
 
+    newPlayer->model->modelId = "Player" + std::to_string(playerCount);
     renderer->AddModel(newPlayer->model, shader);
     physicsEngine->AddPhysicsObject(newPlayer->phyObj);
 
     EntityManager::GetInstance().AddEntity("Player" + std::to_string(playerCount), newPlayer);
+
+    playerCount++;
 
     return newPlayer;
 }

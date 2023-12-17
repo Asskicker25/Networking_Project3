@@ -127,7 +127,7 @@ void UDP_Server::HandleCommandRecv()
 
 				if (!ClientExists(commandData.clientid()))
 				{
-					listOfClients[commandData.clientid()] = &clientInfo;
+					listOfClients[commandData.clientid()] = clientInfo;
 					OnClientAdded(commandData.clientid());
 				}
 
@@ -156,9 +156,11 @@ void UDP_Server::HandleCommandSend()
 			ServerToClientMessages message = listOfMessagesToSend.front();
 			listOfMessagesToSend.pop();
 
-			sockaddr_in* clientInfo = listOfClients[message.id];
+			std::cout << "Client Id : " << message.id << std::endl;
 
-			result = sendto(listenSocket, message.message.message.c_str(), message.message.message.size(), 0, (SOCKADDR*)clientInfo, clientInfoLength);
+			sockaddr_in clientInfo = listOfClients[message.id];
+
+			result = sendto(listenSocket, message.message.message.c_str(), message.message.message.size(), 0, (SOCKADDR*)&clientInfo, clientInfoLength);
 
 			if (result == SOCKET_ERROR)
 			{
@@ -170,7 +172,7 @@ void UDP_Server::HandleCommandSend()
 
 bool UDP_Server::ClientExists(int id)
 {
-	std::unordered_map<int, sockaddr_in*>::iterator it = listOfClients.find(id);
+	std::unordered_map<int, sockaddr_in>::iterator it = listOfClients.find(id);
 
 	if (it == listOfClients.end())
 	{

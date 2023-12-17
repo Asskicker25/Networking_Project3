@@ -97,7 +97,7 @@ void UDP_Client::HandleCommandRecv()
 {
 	int result, error;
 
-	const int bufferLen = (NUM_OF_PLAYER * PLAYER_SIZE) + COMMAND_SIZE;
+	const int bufferLen = (NUM_OF_PLAYER * PLAYER_SIZE) + COMMAND_SIZE + 1;
 
 	while (true)
 	{

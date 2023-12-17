@@ -50,8 +50,8 @@ void GameWindow::SetUp()
 
 void GameWindow::PreRender()
 {
-	physicsEngine.Update(Timer::GetInstance().deltaTime);
 	EntityManager::GetInstance().Update(Timer::GetInstance().deltaTime);
+	physicsEngine.Update(Timer::GetInstance().deltaTime);
 }
 
 void GameWindow::PostRender()
@@ -78,6 +78,13 @@ void GameWindow::ProcessInput(GLFWwindow* window)
 
 void GameWindow::KeyCallBack(GLFWwindow* window, int& key, int& scancode, int& action, int& mods)
 {
+	if (action == GLFW_PRESS)
+	{
+		if (key == GLFW_KEY_SPACE)
+		{
+			physicsEngine.gravity.y = (-9.8f / 5.0f);
+		}
+	}
 }
 
 void GameWindow::MouseButtonCallback(GLFWwindow* window, int& button, int& action, int& mods)
