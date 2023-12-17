@@ -71,10 +71,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)\Dependencies\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)UDP\src;$(SolutionDir)\Dependencies\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependencies\lib\Debug_assimp;$(SolutionDir)Dependencies\lib\glfw\$(Configuration)_x64;$(SolutionDir)Dependencies\lib\Graphics\$(Configuration);$(SolutionDir)Dependencies\lib\protobuf\$(Configuration);$(OutDir);$(SolutionDir)Dependencies\lib\Physics\$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)\Dependencies\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)UDP\src;$(SolutionDir)\Dependencies\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependencies\lib\Debug_assimp;$(SolutionDir)Dependencies\lib\glfw\$(Configuration)_x64;$(SolutionDir)Dependencies\lib\Graphics\$(Configuration);$(SolutionDir)Dependencies\lib\protobuf\$(Configuration);$(OutDir);$(SolutionDir)Dependencies\lib\Physics\$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -114,6 +116,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opengl32.lib;assimp-vc143-mtd.lib;glfw3.lib;Graphics.lib;Physics.lib;libprotobufd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -130,9 +133,30 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opengl32.lib;assimp-vc143-mtd.lib;glfw3.lib;Graphics.lib;Physics.lib;libprotobuf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\EntityManager\Entity.cpp" />
+    <ClCompile Include="src\EntityManager\EntityManager.cpp" />
+    <ClCompile Include="src\GameWindow.cpp" />
+    <ClCompile Include="src\GameServerMain.cpp" />
+    <ClCompile Include="src\InputManager\InputManager.cpp" />
+    <ClCompile Include="src\Utilities\BezierCurve\CubicBezierCurve.cpp" />
+    <ClCompile Include="src\Utilities\RendererInstance.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\EntityManager\Entity.h" />
+    <ClInclude Include="src\EntityManager\EntityManager.h" />
+    <ClInclude Include="src\GameWindow.h" />
+    <ClInclude Include="src\InputManager\iInputListener.h" />
+    <ClInclude Include="src\InputManager\InputManager.h" />
+    <ClInclude Include="src\Utilities\BezierCurve\CubicBezierCurve.h" />
+    <ClInclude Include="src\Utilities\EasingHelper.h" />
+    <ClInclude Include="src\Utilities\Lerp.h" />
+    <ClInclude Include="src\Utilities\Random.h" />
+    <ClInclude Include="src\Utilities\Remap.h" />
+    <ClInclude Include="src\Utilities\RendererInstance.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
