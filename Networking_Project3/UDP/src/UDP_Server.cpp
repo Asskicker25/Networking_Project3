@@ -130,6 +130,11 @@ void UDP_Server::HandleCommandRecv()
 			{
 				Multiplayer::CommandAndData commandData;
 
+				if (commandData.command() == EMPTY)
+				{
+					continue;
+				}
+
 				if (!ClientExists(commandData.id()))
 				{
 					listOfClients[commandData.id()] = &clientInfo;
@@ -187,7 +192,7 @@ bool UDP_Server::ClientExists(int id)
 
 void UDP_Server::SendCommand(int id, const Command& command, const google::protobuf::Message& message)
 {
-	std::string serializedString = SerializeWithCommandAndLengthPrefix(command, message);
+	std::string serializedString = SerializeWithCommandAndLengthPrefix(-1, command, message);
 
 	listOfMessagesToSend.push(ServerToClientMessages{ id,serializedString });
 }

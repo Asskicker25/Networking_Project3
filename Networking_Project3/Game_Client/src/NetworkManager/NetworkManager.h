@@ -11,10 +11,12 @@ public:
 
 	UDP_Client* client;
 
-	void Initialize();
+	void Initialize(int clientId);
 
 
 private:
+
+	int clientId;
 
 	void OnCommandRecv(int id, Multiplayer::CommandAndData commandData);
 

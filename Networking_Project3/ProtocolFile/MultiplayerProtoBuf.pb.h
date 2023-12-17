@@ -46,7 +46,7 @@ struct TableStruct_MultiplayerProtoBuf_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[7]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[8]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -60,6 +60,9 @@ extern BulletDefaultTypeInternal _Bullet_default_instance_;
 class CommandAndData;
 struct CommandAndDataDefaultTypeInternal;
 extern CommandAndDataDefaultTypeInternal _CommandAndData_default_instance_;
+class Empty;
+struct EmptyDefaultTypeInternal;
+extern EmptyDefaultTypeInternal _Empty_default_instance_;
 class GameScene;
 struct GameSceneDefaultTypeInternal;
 extern GameSceneDefaultTypeInternal _GameScene_default_instance_;
@@ -79,6 +82,7 @@ extern vector3DefaultTypeInternal _vector3_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
 template<> ::Multiplayer::Bullet* Arena::CreateMaybeMessage<::Multiplayer::Bullet>(Arena*);
 template<> ::Multiplayer::CommandAndData* Arena::CreateMaybeMessage<::Multiplayer::CommandAndData>(Arena*);
+template<> ::Multiplayer::Empty* Arena::CreateMaybeMessage<::Multiplayer::Empty>(Arena*);
 template<> ::Multiplayer::GameScene* Arena::CreateMaybeMessage<::Multiplayer::GameScene>(Arena*);
 template<> ::Multiplayer::LengthPrefix* Arena::CreateMaybeMessage<::Multiplayer::LengthPrefix>(Arena*);
 template<> ::Multiplayer::Player* Arena::CreateMaybeMessage<::Multiplayer::Player>(Arena*);
@@ -625,6 +629,166 @@ class CommandAndData final :
 };
 // -------------------------------------------------------------------
 
+class Empty final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Multiplayer.Empty) */ {
+ public:
+  inline Empty() : Empty(nullptr) {}
+  ~Empty() override;
+  explicit constexpr Empty(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Empty(const Empty& from);
+  Empty(Empty&& from) noexcept
+    : Empty() {
+    *this = ::std::move(from);
+  }
+
+  inline Empty& operator=(const Empty& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Empty& operator=(Empty&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  }
+  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const Empty& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Empty* internal_default_instance() {
+    return reinterpret_cast<const Empty*>(
+               &_Empty_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(Empty& a, Empty& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Empty* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Empty* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Empty* New() const final {
+    return new Empty();
+  }
+
+  Empty* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Empty>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const Empty& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const Empty& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Empty* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Multiplayer.Empty";
+  }
+  protected:
+  explicit Empty(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kEmptyFieldNumber = 1,
+  };
+  // required string empty = 1;
+  bool has_empty() const;
+  private:
+  bool _internal_has_empty() const;
+  public:
+  void clear_empty();
+  const std::string& empty() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_empty(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_empty();
+  PROTOBUF_MUST_USE_RESULT std::string* release_empty();
+  void set_allocated_empty(std::string* empty);
+  private:
+  const std::string& _internal_empty() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_empty(const std::string& value);
+  std::string* _internal_mutable_empty();
+  public:
+
+  // @@protoc_insertion_point(class_scope:Multiplayer.Empty)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr empty_;
+  friend struct ::TableStruct_MultiplayerProtoBuf_2eproto;
+};
+// -------------------------------------------------------------------
+
 class UserInput final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Multiplayer.UserInput) */ {
  public:
@@ -680,7 +844,7 @@ class UserInput final :
                &_UserInput_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   friend void swap(UserInput& a, UserInput& b) {
     a.Swap(&b);
@@ -835,7 +999,7 @@ class Player final :
                &_Player_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    5;
 
   friend void swap(Player& a, Player& b) {
     a.Swap(&b);
@@ -1050,7 +1214,7 @@ class Bullet final :
                &_Bullet_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    6;
 
   friend void swap(Bullet& a, Bullet& b) {
     a.Swap(&b);
@@ -1245,7 +1409,7 @@ class GameScene final :
                &_GameScene_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    7;
 
   friend void swap(GameScene& a, GameScene& b) {
     a.Swap(&b);
@@ -1610,6 +1774,68 @@ inline void CommandAndData::set_allocated_data(std::string* data) {
   data_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), data,
       GetArenaForAllocation());
   // @@protoc_insertion_point(field_set_allocated:Multiplayer.CommandAndData.data)
+}
+
+// -------------------------------------------------------------------
+
+// Empty
+
+// required string empty = 1;
+inline bool Empty::_internal_has_empty() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool Empty::has_empty() const {
+  return _internal_has_empty();
+}
+inline void Empty::clear_empty() {
+  empty_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& Empty::empty() const {
+  // @@protoc_insertion_point(field_get:Multiplayer.Empty.empty)
+  return _internal_empty();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Empty::set_empty(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000001u;
+ empty_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:Multiplayer.Empty.empty)
+}
+inline std::string* Empty::mutable_empty() {
+  std::string* _s = _internal_mutable_empty();
+  // @@protoc_insertion_point(field_mutable:Multiplayer.Empty.empty)
+  return _s;
+}
+inline const std::string& Empty::_internal_empty() const {
+  return empty_.Get();
+}
+inline void Empty::_internal_set_empty(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  empty_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* Empty::_internal_mutable_empty() {
+  _has_bits_[0] |= 0x00000001u;
+  return empty_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* Empty::release_empty() {
+  // @@protoc_insertion_point(field_release:Multiplayer.Empty.empty)
+  if (!_internal_has_empty()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  return empty_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void Empty::set_allocated_empty(std::string* empty) {
+  if (empty != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  empty_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), empty,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:Multiplayer.Empty.empty)
 }
 
 // -------------------------------------------------------------------
@@ -2245,6 +2471,8 @@ GameScene::bullets() const {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

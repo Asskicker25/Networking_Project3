@@ -4,16 +4,17 @@
 
 static enum Command
 {
-
+	EMPTY = 0
 };
 
-static std::string SerializeWithCommandAndLengthPrefix(const Command& command, const google::protobuf::Message& message)
+static std::string SerializeWithCommandAndLengthPrefix(int id, const Command& command, const google::protobuf::Message& message)
 {
 	std::string serializedMessage;
 	message.SerializeToString(&serializedMessage);
 
 	Multiplayer::CommandAndData commnadData;
 
+	commnadData.set_id(id);
 	commnadData.set_command((int)command);
 	commnadData.set_data(serializedMessage);
 

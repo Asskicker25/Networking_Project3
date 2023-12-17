@@ -10,11 +10,12 @@ UDP_Client::~UDP_Client()
 {
 }
 
-void UDP_Client::InitializeClient(const std::string& ipAddress, const int& port)
+void UDP_Client::InitializeClient(int clientId, const std::string& ipAddress, const int& port)
 {
 
 	this->ipAddress = ipAddress;
 	this->port = port;
+	this->clientID = clientId;
 
 #pragma region StartUp
 
@@ -48,6 +49,19 @@ void UDP_Client::InitializeClient(const std::string& ipAddress, const int& port)
 
 	std::cout << "Address : " << addr.sin_addr.s_addr << std::endl;
 	std::cout << "Port : " << addr.sin_port << std::endl;
+
+	Multiplayer::Empty empty;
+	empty.set_empty("Empty");
+
+	std::string serializedString = SerializeWithCommandAndLengthPrefix(clientId, EMPTY, empty);
+
+	result = sendto(serverSocket, serializedString.c_str(), serializedString.length(), 0, (SOCKADDR*)&addr, addrLen);
+
+	if (result == SOCKET_ERROR)
+	{
+		std::cout << "Client : Sending message to Server failed with error : " << WSAGetLastError() << std::endl;
+	}
+
 
 #pragma endregion
 
@@ -88,13 +102,7 @@ void UDP_Client::HandleCommandRecv()
 
 		sockaddr_in address;
 		int length = sizeof(address);
-
-		if (serverSocket == INVALID_SOCKET) 
-		{
-			std::cout << "Client: Invalid socket descriptor." << std::endl;
-			return;
-		}
-
+		
 		result = recvfrom(serverSocket, buffer, 5, 0, (SOCKADDR*)&address, &length);
 
 		if (result == SOCKET_ERROR) 
@@ -154,7 +162,7 @@ void UDP_Client::HandleCommandSend()
 
 void UDP_Client::SendCommand(const Command& command, const google::protobuf::Message& message)
 {
-	std::string serializedString = SerializeWithCommandAndLengthPrefix(command, message);
+	std::string serializedString = SerializeWithCommandAndLengthPrefix(clientID, command, message);
 
 	listOfMessagesToSend.push(ClientToServerMessages{ serializedString });
 }

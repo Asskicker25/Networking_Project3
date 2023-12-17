@@ -14,7 +14,6 @@
 #include <conio.h>
 #include <map>
 #include <vector>
-#include <thread>
 #include <queue>
 
 #include "Events.h"
@@ -38,11 +37,12 @@ private:
 	//Events cleanupEvents;
 
 	int result, error, addrLen;
-
-	std::string ipAddress;
+	int clientID = 0;
 	int port;
 
+	std::string ipAddress;
 	sockaddr_in addr;
+
 
 	std::queue<ClientToServerMessages> listOfMessagesToSend;
 
@@ -53,7 +53,7 @@ public:
 	UDP_Client();
 	~UDP_Client();
 
-	void InitializeClient(const std::string& ipAddress, const int& port);
+	void InitializeClient(int clientId, const std::string& ipAddress, const int& port);
 
 	void SendCommand(const Command& command, const google::protobuf::Message& message);
 

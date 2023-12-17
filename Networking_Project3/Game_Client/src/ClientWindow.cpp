@@ -36,7 +36,7 @@ void ClientWindow::SetUp()
 
 	NetworkManager* networkManager = new NetworkManager();
 
-	networkManager->Initialize();
+	networkManager->Initialize(1);
 
 	EntityManager::GetInstance().Start();
 }

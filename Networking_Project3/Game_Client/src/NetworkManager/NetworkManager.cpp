@@ -15,11 +15,13 @@ NetworkManager::NetworkManager()
 		};
 }
 
-void NetworkManager::Initialize()
+void NetworkManager::Initialize(int clientId)
 {
+	this->clientId = clientId;
+
 	std::thread serverRecvThread([this]()
 		{
-			client->InitializeClient("127.0.0.1", 8412);
+			client->InitializeClient(this->clientId, "127.0.0.1", 8412);
 		});
 
 	serverRecvThread.detach();

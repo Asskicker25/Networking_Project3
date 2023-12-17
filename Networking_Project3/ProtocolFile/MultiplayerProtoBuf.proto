@@ -21,6 +21,11 @@ message CommandAndData
     required bytes data = 3;
 }
 
+message Empty
+{
+    required string empty = 1;
+}
+
 message UserInput 
 {
     required int32 input = 2; 
