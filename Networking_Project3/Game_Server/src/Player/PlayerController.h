@@ -1,24 +1,15 @@
 #pragma once
 
 #include "../GameObject/GameObject.h"
-#include <UDP_Server.h>
 
-class Player : public GameObject
+class PlayerController : public Entity
 {
 public:
-	Player();
 
-	void CreateInstance(Model& model);
-	Transform* GetTransform() override;
-
-	void UpdateInput(const InputAction& action, const PlayerInput& input);
+	GameObject* gameObject = nullptr;
 
 private:
-
-	float speed = 1;
-	glm::vec3 currentVelocity;
-
-	// Inherited via GameObject
+	// Inherited via Entity
 	void Start() override;
 	void Update(float deltaTime) override;
 	void AddToRendererAndPhysics(Renderer* renderer, Shader* shader, PhysicsEngine* physicsEngine) override;

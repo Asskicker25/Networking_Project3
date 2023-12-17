@@ -1,5 +1,6 @@
 #include "NetworkManager.h"
 #include <Graphics/Timer.h>
+#include "../Player/Player.h"
 
 NetworkManager::NetworkManager()
 {
@@ -85,6 +86,10 @@ void NetworkManager::OnCommandRecv(int id, Multiplayer::CommandAndData commandDa
 {
 	Multiplayer::UserInput input;
 	input.ParseFromString(commandData.data());
+
+	Player* obj = (Player*)(gameManager->listOfPlayers[id]);
+
+	obj->UpdateInput((InputAction)input.action(), (PlayerInput)input.input());
 
 	std::cout << input.input() << std::endl;
 

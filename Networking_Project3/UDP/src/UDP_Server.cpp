@@ -103,7 +103,7 @@ void UDP_Server::HandleCommandRecv()
 {
 	int result, error;
 
-	const int bufferSize = 8;
+	const int bufferSize = 10;
 
 	while (true)
 	{
@@ -123,7 +123,7 @@ void UDP_Server::HandleCommandRecv()
 			if (result > 0)
 			{
 				Multiplayer::CommandAndData commandData;
-				commandData.ParseFromArray(buffer, 8);
+				commandData.ParseFromArray(buffer, bufferSize);
 
 				if (!ClientExists(commandData.clientid()))
 				{

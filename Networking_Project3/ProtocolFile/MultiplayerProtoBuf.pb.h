@@ -751,8 +751,22 @@ class UserInput final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kActionFieldNumber = 1,
     kInputFieldNumber = 2,
   };
+  // required int32 action = 1;
+  bool has_action() const;
+  private:
+  bool _internal_has_action() const;
+  public:
+  void clear_action();
+  ::PROTOBUF_NAMESPACE_ID::int32 action() const;
+  void set_action(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_action() const;
+  void _internal_set_action(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
   // required int32 input = 2;
   bool has_input() const;
   private:
@@ -770,11 +784,15 @@ class UserInput final :
  private:
   class _Internal;
 
+  // helper for ByteSizeLong()
+  size_t RequiredFieldsByteSizeFallback() const;
+
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::int32 action_;
   ::PROTOBUF_NAMESPACE_ID::int32 input_;
   friend struct ::TableStruct_MultiplayerProtoBuf_2eproto;
 };
@@ -1654,9 +1672,37 @@ inline void CommandAndData::set_allocated_data(std::string* data) {
 
 // UserInput
 
+// required int32 action = 1;
+inline bool UserInput::_internal_has_action() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool UserInput::has_action() const {
+  return _internal_has_action();
+}
+inline void UserInput::clear_action() {
+  action_ = 0;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 UserInput::_internal_action() const {
+  return action_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 UserInput::action() const {
+  // @@protoc_insertion_point(field_get:Multiplayer.UserInput.action)
+  return _internal_action();
+}
+inline void UserInput::_internal_set_action(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _has_bits_[0] |= 0x00000001u;
+  action_ = value;
+}
+inline void UserInput::set_action(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_action(value);
+  // @@protoc_insertion_point(field_set:Multiplayer.UserInput.action)
+}
+
 // required int32 input = 2;
 inline bool UserInput::_internal_has_input() const {
-  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
 inline bool UserInput::has_input() const {
@@ -1664,7 +1710,7 @@ inline bool UserInput::has_input() const {
 }
 inline void UserInput::clear_input() {
   input_ = 0;
-  _has_bits_[0] &= ~0x00000001u;
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 UserInput::_internal_input() const {
   return input_;
@@ -1674,7 +1720,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 UserInput::input() const {
   return _internal_input();
 }
 inline void UserInput::_internal_set_input(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _has_bits_[0] |= 0x00000001u;
+  _has_bits_[0] |= 0x00000002u;
   input_ = value;
 }
 inline void UserInput::set_input(::PROTOBUF_NAMESPACE_ID::int32 value) {

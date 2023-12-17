@@ -36,36 +36,87 @@ void PlayerController::RemoveFromRendererAndPhysics(Renderer* renderer, PhysicsE
 void PlayerController::OnKeyPressed(const int& key)
 {
 
-	Multiplayer::UserInput input;
-
 	if (key == GLFW_KEY_W)
 	{
+		Multiplayer::UserInput input;
+		input.set_action((int)PRESSED);
 		input.set_input((int)FORWARD);
+		client->SendCommand(USER_INPUT, input);
+
 	}
 	else if (key == GLFW_KEY_S)
 	{
+		Multiplayer::UserInput input;
+		input.set_action((int)PRESSED);
 		input.set_input((int)BACKWARD);
+		client->SendCommand(USER_INPUT, input);
 	}
 	else if (key == GLFW_KEY_A)
 	{
+		Multiplayer::UserInput input;
+		input.set_action((int)PRESSED);
 		input.set_input((int)TURN_LEFT);
+		client->SendCommand(USER_INPUT, input);
 	}
 	else if (key == GLFW_KEY_D)
 	{
+		Multiplayer::UserInput input;
+		input.set_action((int)PRESSED);
 		input.set_input((int)TURN_RIGHT);
+		client->SendCommand(USER_INPUT, input);
 	}
 	else if (key == GLFW_KEY_J)
 	{
+		Multiplayer::UserInput input;
+		input.set_action((int)PRESSED);
 		input.set_input((int)FIRE);
+		client->SendCommand(USER_INPUT, input);
 	}
 
-	client->SendCommand(USER_INPUT, input);
 }
 
 void PlayerController::OnKeyReleased(const int& key)
 {
+
+	if (key == GLFW_KEY_W)
+	{
+		Multiplayer::UserInput input;
+		input.set_action((int)RELEASED);
+		input.set_input((int)FORWARD);
+		client->SendCommand(USER_INPUT, input);
+
+	}
+	else if (key == GLFW_KEY_S)
+	{
+		Multiplayer::UserInput input;
+		input.set_action((int)RELEASED);
+		input.set_input((int)BACKWARD);
+		client->SendCommand(USER_INPUT, input);
+	}
+	else if (key == GLFW_KEY_A)
+	{
+		Multiplayer::UserInput input;
+		input.set_action((int)RELEASED);
+		input.set_input((int)TURN_LEFT);
+		client->SendCommand(USER_INPUT, input);
+	}
+	else if (key == GLFW_KEY_D)
+	{
+		Multiplayer::UserInput input;
+		input.set_action((int)RELEASED);
+		input.set_input((int)TURN_RIGHT);
+		client->SendCommand(USER_INPUT, input);
+	}
+	else if (key == GLFW_KEY_J)
+	{
+		Multiplayer::UserInput input;
+		input.set_action((int)RELEASED);
+		input.set_input((int)FIRE);
+		client->SendCommand(USER_INPUT, input);
+	}
 }
 
 void PlayerController::OnKeyHeld(const int& key)
 {
+
 }

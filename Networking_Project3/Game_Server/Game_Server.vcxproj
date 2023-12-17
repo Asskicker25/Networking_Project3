@@ -137,6 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Player\PlayerController.cpp" />
     <ClCompile Include="src\GameManager\GameManager.cpp" />
     <ClCompile Include="src\NetworkManager\NetworkManager.cpp" />
     <ClCompile Include="src\EntityManager\Entity.cpp" />
@@ -151,6 +152,7 @@
     <ClCompile Include="src\Utilities\RendererInstance.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Player\PlayerController.h" />
     <ClInclude Include="src\GameManager\GameManager.h" />
     <ClInclude Include="src\GameObject\GameObject.h" />
     <ClInclude Include="src\NetworkManager\NetworkManager.h" />

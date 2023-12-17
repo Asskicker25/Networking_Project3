@@ -59,7 +59,8 @@ struct CommandAndDataDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CommandAndDataDefaultTypeInternal _CommandAndData_default_instance_;
 constexpr UserInput::UserInput(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : input_(0){}
+  : action_(0)
+  , input_(0){}
 struct UserInputDefaultTypeInternal {
   constexpr UserInputDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -157,8 +158,10 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_MultiplayerProtoBuf_2eproto::o
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Multiplayer::UserInput, action_),
   PROTOBUF_FIELD_OFFSET(::Multiplayer::UserInput, input_),
   0,
+  1,
   PROTOBUF_FIELD_OFFSET(::Multiplayer::Player, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::Multiplayer::Player, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -202,10 +205,10 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 0, 9, -1, sizeof(::Multiplayer::vector3)},
   { 12, 19, -1, sizeof(::Multiplayer::LengthPrefix)},
   { 20, 29, -1, sizeof(::Multiplayer::CommandAndData)},
-  { 32, 39, -1, sizeof(::Multiplayer::UserInput)},
-  { 40, 52, -1, sizeof(::Multiplayer::Player)},
-  { 58, 67, -1, sizeof(::Multiplayer::Bullet)},
-  { 70, -1, -1, sizeof(::Multiplayer::GameScene)},
+  { 32, 40, -1, sizeof(::Multiplayer::UserInput)},
+  { 42, 54, -1, sizeof(::Multiplayer::Player)},
+  { 60, 69, -1, sizeof(::Multiplayer::Bullet)},
+  { 72, -1, -1, sizeof(::Multiplayer::GameScene)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -223,22 +226,22 @@ const char descriptor_table_protodef_MultiplayerProtoBuf_2eproto[] PROTOBUF_SECT
   "\"*\n\007vector3\022\t\n\001x\030\001 \002(\002\022\t\n\001y\030\002 \002(\002\022\t\n\001z\030\003"
   " \002(\002\"%\n\014LengthPrefix\022\025\n\rmessageLength\030\002 "
   "\002(\007\"A\n\016CommandAndData\022\020\n\010clientId\030\002 \002(\005\022"
-  "\017\n\007command\030\003 \002(\005\022\014\n\004data\030\004 \002(\014\"\032\n\tUserIn"
-  "put\022\r\n\005input\030\002 \002(\005\"\306\001\n\006Player\022\020\n\010clientI"
-  "d\030\001 \002(\005\022\r\n\005state\030\002 \002(\005\022&\n\010position\030\003 \001(\013"
-  "2\024.Multiplayer.vector3\022#\n\005color\030\004 \001(\0132\024."
-  "Multiplayer.vector3\022&\n\010velocity\030\005 \001(\0132\024."
-  "Multiplayer.vector3\022&\n\010rotation\030\006 \001(\0132\024."
-  "Multiplayer.vector3\"g\n\006Bullet\022\r\n\005state\030\001"
-  " \002(\005\022&\n\010position\030\002 \001(\0132\024.Multiplayer.vec"
-  "tor3\022&\n\010velocity\030\003 \001(\0132\024.Multiplayer.vec"
-  "tor3\"W\n\tGameScene\022$\n\007players\030\002 \003(\0132\023.Mul"
-  "tiplayer.Player\022$\n\007bullets\030\003 \003(\0132\023.Multi"
-  "player.Bullet"
+  "\017\n\007command\030\003 \002(\005\022\014\n\004data\030\004 \002(\014\"*\n\tUserIn"
+  "put\022\016\n\006action\030\001 \002(\005\022\r\n\005input\030\002 \002(\005\"\306\001\n\006P"
+  "layer\022\020\n\010clientId\030\001 \002(\005\022\r\n\005state\030\002 \002(\005\022&"
+  "\n\010position\030\003 \001(\0132\024.Multiplayer.vector3\022#"
+  "\n\005color\030\004 \001(\0132\024.Multiplayer.vector3\022&\n\010v"
+  "elocity\030\005 \001(\0132\024.Multiplayer.vector3\022&\n\010r"
+  "otation\030\006 \001(\0132\024.Multiplayer.vector3\"g\n\006B"
+  "ullet\022\r\n\005state\030\001 \002(\005\022&\n\010position\030\002 \001(\0132\024"
+  ".Multiplayer.vector3\022&\n\010velocity\030\003 \001(\0132\024"
+  ".Multiplayer.vector3\"W\n\tGameScene\022$\n\007pla"
+  "yers\030\002 \003(\0132\023.Multiplayer.Player\022$\n\007bulle"
+  "ts\030\003 \003(\0132\023.Multiplayer.Bullet"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_MultiplayerProtoBuf_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_MultiplayerProtoBuf_2eproto = {
-  false, false, 613, descriptor_table_protodef_MultiplayerProtoBuf_2eproto, "MultiplayerProtoBuf.proto", 
+  false, false, 629, descriptor_table_protodef_MultiplayerProtoBuf_2eproto, "MultiplayerProtoBuf.proto", 
   &descriptor_table_MultiplayerProtoBuf_2eproto_once, nullptr, 0, 7,
   schemas, file_default_instances, TableStruct_MultiplayerProtoBuf_2eproto::offsets,
   file_level_metadata_MultiplayerProtoBuf_2eproto, file_level_enum_descriptors_MultiplayerProtoBuf_2eproto, file_level_service_descriptors_MultiplayerProtoBuf_2eproto,
@@ -1035,11 +1038,14 @@ void CommandAndData::InternalSwap(CommandAndData* other) {
 class UserInput::_Internal {
  public:
   using HasBits = decltype(std::declval<UserInput>()._has_bits_);
-  static void set_has_input(HasBits* has_bits) {
+  static void set_has_action(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
+  static void set_has_input(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
   static bool MissingRequiredFields(const HasBits& has_bits) {
-    return ((has_bits[0] & 0x00000001) ^ 0x00000001) != 0;
+    return ((has_bits[0] & 0x00000003) ^ 0x00000003) != 0;
   }
 };
 
@@ -1056,12 +1062,17 @@ UserInput::UserInput(const UserInput& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  input_ = from.input_;
+  ::memcpy(&action_, &from.action_,
+    static_cast<size_t>(reinterpret_cast<char*>(&input_) -
+    reinterpret_cast<char*>(&action_)) + sizeof(input_));
   // @@protoc_insertion_point(copy_constructor:Multiplayer.UserInput)
 }
 
 void UserInput::SharedCtor() {
-input_ = 0;
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&action_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&input_) -
+    reinterpret_cast<char*>(&action_)) + sizeof(input_));
 }
 
 UserInput::~UserInput() {
@@ -1091,7 +1102,12 @@ void UserInput::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  input_ = 0;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    ::memset(&action_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&input_) -
+        reinterpret_cast<char*>(&action_)) + sizeof(input_));
+  }
   _has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -1103,6 +1119,15 @@ const char* UserInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
+      // required int32 action = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          _Internal::set_has_action(&has_bits);
+          action_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       // required int32 input = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
@@ -1143,8 +1168,14 @@ failure:
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // required int32 input = 2;
+  // required int32 action = 1;
   if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_action(), target);
+  }
+
+  // required int32 input = 2;
+  if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_input(), target);
   }
@@ -1157,13 +1188,35 @@ failure:
   return target;
 }
 
+size_t UserInput::RequiredFieldsByteSizeFallback() const {
+// @@protoc_insertion_point(required_fields_byte_size_fallback_start:Multiplayer.UserInput)
+  size_t total_size = 0;
+
+  if (_internal_has_action()) {
+    // required int32 action = 1;
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_action());
+  }
+
+  if (_internal_has_input()) {
+    // required int32 input = 2;
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_input());
+  }
+
+  return total_size;
+}
 size_t UserInput::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:Multiplayer.UserInput)
   size_t total_size = 0;
 
-  // required int32 input = 2;
-  if (_internal_has_input()) {
+  if (((_has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
+    // required int32 action = 1;
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_action());
+
+    // required int32 input = 2;
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_input());
+
+  } else {
+    total_size += RequiredFieldsByteSizeFallback();
   }
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
@@ -1191,8 +1244,15 @@ void UserInput::MergeFrom(const UserInput& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_input()) {
-    _internal_set_input(from._internal_input());
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      action_ = from.action_;
+    }
+    if (cached_has_bits & 0x00000002u) {
+      input_ = from.input_;
+    }
+    _has_bits_[0] |= cached_has_bits;
   }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -1213,7 +1273,12 @@ void UserInput::InternalSwap(UserInput* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(input_, other->input_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(UserInput, input_)
+      + sizeof(UserInput::input_)
+      - PROTOBUF_FIELD_OFFSET(UserInput, action_)>(
+          reinterpret_cast<char*>(&action_),
+          reinterpret_cast<char*>(&other->action_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata UserInput::GetMetadata() const {

@@ -51,7 +51,8 @@ void UDP_Client::InitializeClient(int clientId, const std::string& ipAddress, co
 	std::cout << "Port : " << addr.sin_port << std::endl;
 
 	Multiplayer::UserInput input;
-	input.set_input(0);
+	input.set_input(1);
+	input.set_action(1);
 
 	LengthPrefixedMessage serializedString = SerializeWithCommandAndLengthPrefix(clientId, USER_INPUT, input);
 

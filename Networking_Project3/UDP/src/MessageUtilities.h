@@ -19,6 +19,12 @@ static enum PlayerInput
 	FIRE = 4
 };
 
+static enum InputAction
+{
+	PRESSED = 0,
+	RELEASED = 1
+};
+
 struct LengthPrefixedMessage
 {
 	std::string message;

@@ -23,6 +23,7 @@ message CommandAndData
 
 message UserInput 
 {
+    required int32 action = 1; 
     required int32 input = 2; 
 }
 
