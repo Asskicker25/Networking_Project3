@@ -104,9 +104,9 @@ void UDP_Server::HandleCommandRecv()
 	{
 		char buffer[5];
 
-		sockaddr_in* clientInfo = nullptr;
+		sockaddr_in clientInfo;
 
-		result = recvfrom(listenSocket, buffer, 5, 0, (SOCKADDR*)clientInfo, &clientInfoLength);
+		result = recvfrom(listenSocket, buffer, 5, 0, (SOCKADDR*)&clientInfo, &clientInfoLength);
 
 		if (result == SOCKET_ERROR)
 		{
@@ -129,7 +129,7 @@ void UDP_Server::HandleCommandRecv()
 
 				if (!ClientExists(commandData.id()))
 				{
-					listOfClients[commandData.id()] = clientInfo;
+					listOfClients[commandData.id()] = &clientInfo;
 				}
 
 				if (commandData.ParseFromString(serializedMessageData))

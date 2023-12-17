@@ -1,6 +1,8 @@
 #include "GameWindow.h"
 #include "EntityManager/EntityManager.h"
 #include "Utilities/RendererInstance.h"
+#include "NetworkManager/NetworkManager.h"
+#include <thread>
 
 void GameWindow::SetUp()
 {
@@ -32,7 +34,8 @@ void GameWindow::SetUp()
 
 #pragma endregion
 
-
+	NetworkManager* networkManager = new NetworkManager();
+	networkManager->Initialize();
 
 	EntityManager::GetInstance().Start();
 

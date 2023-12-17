@@ -116,7 +116,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;assimp-vc143-mtd.lib;glfw3.lib;Graphics.lib;Physics.lib;libprotobufd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;assimp-vc143-mtd.lib;glfw3.lib;Graphics.lib;Physics.lib;UDP.lib;libprotobufd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -133,10 +133,11 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;assimp-vc143-mtd.lib;glfw3.lib;Graphics.lib;Physics.lib;libprotobuf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;assimp-vc143-mtd.lib;glfw3.lib;Graphics.lib;Physics.lib;UDP.lib;libprotobuf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\NetworkManager\NetworkManager.cpp" />
     <ClCompile Include="src\EntityManager\Entity.cpp" />
     <ClCompile Include="src\EntityManager\EntityManager.cpp" />
     <ClCompile Include="src\GameWindow.cpp" />
@@ -146,6 +147,8 @@
     <ClCompile Include="src\Utilities\RendererInstance.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameObject\GameObject.h" />
+    <ClInclude Include="src\NetworkManager\NetworkManager.h" />
     <ClInclude Include="src\EntityManager\Entity.h" />
     <ClInclude Include="src\EntityManager\EntityManager.h" />
     <ClInclude Include="src\GameWindow.h" />

@@ -64,9 +64,7 @@ public:
 	void SendCommand(int id, const Command& command, const google::protobuf::Message& message);
 
 
-	std::function<void(int)> OnClientConnected = nullptr;
 	std::function<void(int, Multiplayer::CommandAndData)> OnCommandReceived = nullptr;
-
 
 };
 
