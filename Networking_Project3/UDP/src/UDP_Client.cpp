@@ -34,7 +34,7 @@ void UDP_Client::InitializeClient(int clientId, const std::string& ipAddress, co
 
 	serverSocket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 
-	if (serverSocket == INVALID_SOCKET) 
+	if (serverSocket == INVALID_SOCKET)
 	{
 		std::cout << "Client : Socket creation failed with error : " << WSAGetLastError() << std::endl;
 		//cleanupEvents.Addfunction("WSACleanup", WSACleanup);
@@ -50,17 +50,18 @@ void UDP_Client::InitializeClient(int clientId, const std::string& ipAddress, co
 	std::cout << "Address : " << addr.sin_addr.s_addr << std::endl;
 	std::cout << "Port : " << addr.sin_port << std::endl;
 
-	Multiplayer::Empty empty;
-	empty.set_empty("Empty");
+	Multiplayer::UserInput input;
+	input.set_input(0);
 
-	std::string serializedString = SerializeWithCommandAndLengthPrefix(clientId, EMPTY, empty);
+	LengthPrefixedMessage serializedString = SerializeWithCommandAndLengthPrefix(clientId, USER_INPUT, input);
 
-	result = sendto(serverSocket, serializedString.c_str(), serializedString.length(), 0, (SOCKADDR*)&addr, addrLen);
-
+	result = sendto(serverSocket, serializedString.message.c_str(), serializedString.message.size(), 0, (SOCKADDR*)&addr, addrLen);
 	if (result == SOCKET_ERROR)
 	{
 		std::cout << "Client : Sending message to Server failed with error : " << WSAGetLastError() << std::endl;
 	}
+
+
 
 
 #pragma endregion
@@ -80,7 +81,7 @@ void UDP_Client::InitializeClient(int clientId, const std::string& ipAddress, co
 		});
 
 	serverRecvThread.detach();
-	
+
 
 #pragma endregion
 
@@ -102,10 +103,10 @@ void UDP_Client::HandleCommandRecv()
 
 		sockaddr_in address;
 		int length = sizeof(address);
-		
+
 		result = recvfrom(serverSocket, buffer, 5, 0, (SOCKADDR*)&address, &length);
 
-		if (result == SOCKET_ERROR) 
+		if (result == SOCKET_ERROR)
 		{
 			error = WSAGetLastError();
 			std::cout << "Client: Receiving message from Server failed with error: " << error << std::endl;
@@ -126,7 +127,7 @@ void UDP_Client::HandleCommandRecv()
 
 				if (commandData.ParseFromString(serializedMessageData))
 				{
-					OnCommandReceived(commandData.id(), commandData);
+					OnCommandReceived(commandData.clientid(), commandData);
 				}
 				else
 				{
@@ -147,10 +148,11 @@ void UDP_Client::HandleCommandSend()
 
 		if (listOfMessagesToSend.size() > 0)
 		{
-			ClientToServerMessages message = listOfMessagesToSend.front();
+			LengthPrefixedMessage message = listOfMessagesToSend.front();
 			listOfMessagesToSend.pop();
 
-			result = sendto(serverSocket, message.message.c_str(), message.message.size(), 0, (SOCKADDR*)&addr, addrLen);
+			result = sendto(serverSocket, message.message.c_str(),
+				message.message.size(), 0, (SOCKADDR*)&addr, addrLen);
 
 			if (result == SOCKET_ERROR)
 			{
@@ -162,8 +164,8 @@ void UDP_Client::HandleCommandSend()
 
 void UDP_Client::SendCommand(const Command& command, const google::protobuf::Message& message)
 {
-	std::string serializedString = SerializeWithCommandAndLengthPrefix(clientID, command, message);
+	LengthPrefixedMessage serializedString = SerializeWithCommandAndLengthPrefix(clientID, command, message);
 
-	listOfMessagesToSend.push(ClientToServerMessages{ serializedString });
+	listOfMessagesToSend.push(serializedString);
 }
 

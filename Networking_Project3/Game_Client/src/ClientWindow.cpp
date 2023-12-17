@@ -3,6 +3,12 @@
 #include "Utilities/RendererInstance.h"
 #include <thread>
 #include "NetworkManager/NetworkManager.h"
+#include "Player/PlayerManager.h"
+
+void ClientWindow::SetClientId(const int& id)
+{
+	this->clientId = id;
+}
 
 void ClientWindow::SetUp()
 {
@@ -16,7 +22,7 @@ void ClientWindow::SetUp()
 
 	camera->InitializeCamera(PERSPECTIVE, windowWidth, windowHeight, 0.1f, 1000.0f, 65.0f);
 
-	camera->transform.SetPosition(glm::vec3(0, 0, 0));
+	camera->transform.SetPosition(glm::vec3(0, 0, 3));
 	camera->transform.SetRotation(glm::vec3(0, 0, 0));
 
 	EntityManager::GetInstance().AddToRendererAndPhysics(&renderer, &defShader, &physicsEngine);
@@ -36,7 +42,10 @@ void ClientWindow::SetUp()
 
 	NetworkManager* networkManager = new NetworkManager();
 
-	networkManager->Initialize(1);
+	networkManager->Initialize(clientId);
+
+	Player* player = PlayerManager::GetInstance().CreatePlayer();
+	player->GetTransform()->SetPosition(glm::vec3(0, 0, 0));
 
 	EntityManager::GetInstance().Start();
 }
@@ -53,6 +62,20 @@ void ClientWindow::PostRender()
 
 void ClientWindow::ProcessInput(GLFWwindow* window)
 {
+	std::stringstream ssTitle;
+	ssTitle << " ***Client*** "
+		<< "Camera Pos : "
+		<< camera->transform.position.x << " , "
+		<< camera->transform.position.y << " , "
+		<< camera->transform.position.z
+		<< "  Camera Pitch : "
+		<< camera->transform.rotation.x
+		<< "  Camera Yaw : "
+		<< camera->transform.rotation.y;
+
+	std::string theTitle = ssTitle.str();
+
+	glfwSetWindowTitle(window, theTitle.c_str());
 }
 
 void ClientWindow::KeyCallBack(GLFWwindow* window, int& key, int& scancode, int& action, int& mods)

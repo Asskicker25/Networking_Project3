@@ -137,6 +137,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="PlayerController.h" />
+    <ClInclude Include="src\Player\PlayerManager.h" />
+    <ClInclude Include="src\Player\PlayerFactory.h" />
+    <ClInclude Include="src\Player\Player.h" />
     <ClInclude Include="src\ClientWindow.h" />
     <ClInclude Include="src\EntityManager\Entity.h" />
     <ClInclude Include="src\EntityManager\EntityManager.h" />
@@ -152,6 +156,10 @@
     <ClInclude Include="src\Utilities\RendererInstance.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="PlayerController.cpp" />
+    <ClCompile Include="src\Player\PlayerManager.cpp" />
+    <ClCompile Include="src\Player\PlayerFactory.cpp" />
+    <ClCompile Include="src\Player\Player.cpp" />
     <ClCompile Include="src\ClientMain.cpp" />
     <ClCompile Include="src\ClientWindow.cpp" />
     <ClCompile Include="src\EntityManager\Entity.cpp" />

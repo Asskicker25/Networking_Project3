@@ -9,6 +9,12 @@ public:
 
 	PhysicsEngine physicsEngine;
 
+	void SetClientId(const int& id);
+
+private:
+
+	int clientId = 0;
+
 	// Inherited via ApplicationWindow
 	void SetUp() override;
 	void PreRender() override;

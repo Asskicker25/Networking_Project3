@@ -11,19 +11,14 @@ message vector3
 
 message LengthPrefix
 {
-    required fixed32 messageLength = 1;
+    required fixed32 messageLength = 2;
 }
 
 message CommandAndData
 {
-    required int32 id = 1;
-    required int32 command = 2;
-    required bytes data = 3;
-}
-
-message Empty
-{
-    required string empty = 1;
+    required int32 clientId = 2;
+    required int32 command = 3;
+    required bytes data = 4;
 }
 
 message UserInput 

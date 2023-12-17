@@ -103,13 +103,15 @@ void UDP_Server::HandleCommandRecv()
 {
 	int result, error;
 
+	const int bufferSize = 8;
+
 	while (true)
 	{
-		char buffer[5];
+		char buffer[bufferSize] = "";
 
 		sockaddr_in clientInfo;
 
-		result = recvfrom(listenSocket, buffer, 5, 0, (SOCKADDR*)&clientInfo, &clientInfoLength);
+		result = recvfrom(listenSocket, buffer, bufferSize, 0, (SOCKADDR*)&clientInfo, &clientInfoLength);
 
 		if (result == SOCKET_ERROR)
 		{
@@ -118,41 +120,28 @@ void UDP_Server::HandleCommandRecv()
 		}
 		else
 		{
-			Multiplayer::LengthPrefix lengthPrefix;
-
-			lengthPrefix.ParseFromArray(buffer, 5);
-
-			std::string serializedMessageData(lengthPrefix.messagelength(), '\0');
-
-			result = recvfrom(listenSocket, &serializedMessageData[0], lengthPrefix.messagelength(), 0, (SOCKADDR*)&clientInfo, &clientInfoLength);
 
 			if (result > 0)
 			{
 				Multiplayer::CommandAndData commandData;
+				commandData.ParseFromArray(buffer, 8);
 
-				if (commandData.command() == EMPTY)
+				if (!ClientExists(commandData.clientid()))
 				{
-					continue;
-				}
-
-				if (!ClientExists(commandData.id()))
-				{
-					listOfClients[commandData.id()] = &clientInfo;
+					listOfClients[commandData.clientid()] = &clientInfo;
+					OnClientAdded(commandData.clientid());
 				}
 
-				if (commandData.ParseFromString(serializedMessageData))
-				{
-					OnCommandReceived(commandData.id(), commandData);
-				}
-				else
-				{
-					std::cout << "Server : Message Parsing failed " << std::endl;
-				}
+				OnCommandReceived(commandData.clientid(), commandData);
+			}
+			else
+			{
+				std::cout << "Server : Message Parsing failed " << std::endl;
 			}
 		}
+			
 
 	}
-
 }
 
 void UDP_Server::HandleCommandSend()
@@ -169,8 +158,9 @@ void UDP_Server::HandleCommandSend()
 			listOfMessagesToSend.pop();
 
 			sockaddr_in* clientInfo = listOfClients[message.id];
-			result = sendto(listenSocket, message.message.c_str(), message.message.size(), 0, (SOCKADDR*)clientInfo, clientInfoLength);
-		
+
+			result = sendto(listenSocket, message.message.message.c_str(), message.message.message.size(), 0, (SOCKADDR*)clientInfo, clientInfoLength);
+
 			if (result == SOCKET_ERROR)
 			{
 				std::cout << "Server : Sending message to Client failed with error : " << WSAGetLastError() << std::endl;
@@ -192,7 +182,7 @@ bool UDP_Server::ClientExists(int id)
 
 void UDP_Server::SendCommand(int id, const Command& command, const google::protobuf::Message& message)
 {
-	std::string serializedString = SerializeWithCommandAndLengthPrefix(-1, command, message);
+	LengthPrefixedMessage serializedString = SerializeWithCommandAndLengthPrefix(-1, command, message);
 
 	listOfMessagesToSend.push(ServerToClientMessages{ id,serializedString });
 }

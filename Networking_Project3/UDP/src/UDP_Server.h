@@ -28,7 +28,7 @@
 struct ServerToClientMessages
 {
 	int id = -1;
-	std::string message;
+	LengthPrefixedMessage message;
 };
 
 class UDP_Server
@@ -65,6 +65,7 @@ public:
 
 
 	std::function<void(int, Multiplayer::CommandAndData)> OnCommandReceived = nullptr;
+	std::function<void(int)> OnClientAdded = nullptr;
 
 };
 

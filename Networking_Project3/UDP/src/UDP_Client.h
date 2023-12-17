@@ -21,10 +21,6 @@
 
 #pragma comment(lib, "Ws2_32.lib")
 
-struct ClientToServerMessages
-{
-	std::string message;
-};
 
 class UDP_Client
 {
@@ -44,7 +40,7 @@ private:
 	sockaddr_in addr;
 
 
-	std::queue<ClientToServerMessages> listOfMessagesToSend;
+	std::queue<LengthPrefixedMessage> listOfMessagesToSend;
 
 	void HandleCommandRecv();
 	void HandleCommandSend();
