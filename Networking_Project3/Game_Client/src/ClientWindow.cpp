@@ -41,11 +41,9 @@ void ClientWindow::SetUp()
 #pragma endregion
 
 	NetworkManager* networkManager = new NetworkManager();
+	PlayerManager::GetInstance().Print();
 
 	networkManager->Initialize(clientId);
-
-	Player* player = PlayerManager::GetInstance().CreatePlayer();
-	player->GetTransform()->SetPosition(glm::vec3(0, 0, 0));
 
 	EntityManager::GetInstance().Start();
 }

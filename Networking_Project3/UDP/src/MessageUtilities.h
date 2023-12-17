@@ -1,11 +1,12 @@
 #pragma once
 #include <string>
 #include "../../ProtocolFile/MultiplayerProtoBuf.pb.h"
+#include <glm/glm.hpp>
 
 static enum Command
 {
 	USER_INPUT = 0,
-	PLAYER = 1,
+	GAME_SCENE = 1
 };
 
 struct LengthPrefixedMessage
@@ -38,4 +39,26 @@ static LengthPrefixedMessage SerializeWithCommandAndLengthPrefix(int id, const C
 	result.append(serializedMessageData);
 
 	return LengthPrefixedMessage{ serializedMessageData };
+}
+
+static Multiplayer::vector3* GetVector3(const glm::vec3& value)
+{
+	Multiplayer::vector3* returnValue = new Multiplayer::vector3();
+
+	returnValue->set_x(value.x);
+	returnValue->set_y(value.y);
+	returnValue->set_z(value.z);
+
+	return returnValue;
+}
+
+static glm::vec3 GetGlmVector3(const Multiplayer::vector3& value)
+{
+	glm::vec3 returnValue = glm::vec3(0);
+
+	returnValue.x = value.x();
+	returnValue.y = value.y();
+	returnValue.z = value.z();
+
+	return returnValue;
 }

@@ -9,6 +9,7 @@ public:
 	GameManager();
 
 	void AddPlayer(int id);
+	std::unordered_map<int, GameObject*> listOfPlayers;
 
 private:
 	int currentPlayerCount = 0;
@@ -16,7 +17,6 @@ private:
 	static glm::vec3 position[4];
 	static glm::vec4 colors[4];
 
-	std::unordered_map<int, GameObject*> listOfPlayers;
 
 	// Inherited via GameObject
 	void Start() override;

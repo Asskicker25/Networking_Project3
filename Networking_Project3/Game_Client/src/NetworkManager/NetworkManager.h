@@ -19,6 +19,7 @@ private:
 	int clientId;
 
 	void OnCommandRecv(int id, Multiplayer::CommandAndData commandData);
+	void UpdateGameObjectValue(GameObject* gameObject, const  Multiplayer::Player& player);
 
 	// Inherited via GameObject
 	Transform* GetTransform() override;

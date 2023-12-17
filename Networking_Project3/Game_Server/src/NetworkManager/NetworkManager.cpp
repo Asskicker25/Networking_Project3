@@ -1,5 +1,5 @@
 #include "NetworkManager.h"
-
+#include <Graphics/Timer.h>
 
 NetworkManager::NetworkManager()
 {
@@ -34,39 +34,56 @@ void NetworkManager::Start()
 {
 }
 
+
 void NetworkManager::Update(float deltaTime)
 {
-}
+	timeStep += Timer::GetInstance().deltaTime;
 
-void NetworkManager::OnCommandRecv(int id, Multiplayer::CommandAndData commandData)
-{
-	int result;
-
-#pragma region Player
-
-	if (commandData.command() == PLAYER)
+	if (timeStep > broadcastInterval)
 	{
-		Multiplayer::Player player;
-		player.ParseFromString(commandData.data());
-
-		PlayerData playerData;
-		playerData.state = (PlayerState)player.state();
-		playerData.pos = glm::vec3(player.position().x(), player.position().y(), player.position().z());
-		playerData.rot = glm::vec3(player.rotation().x(), player.rotation().y(), player.rotation().z());
-		playerData.vel = glm::vec3(player.velocity().x(), player.velocity().y(), player.velocity().z());
-
-		AddPlayerToList(id, playerData);
-
-		Debugger::Print("Player Pos :", playerData.pos);
+		timeStep = 0;
+		BroadcastToClients();
 	}
-
-#pragma endregion
 
 }
 
 void NetworkManager::OnClientConnected(int id)
 {
+	Multiplayer::Player* player = gameScene.add_players();
 	gameManager->AddPlayer(id);
+	AddPlayerToList(id, player);
+}
+
+void NetworkManager::BroadcastToClients()
+{
+
+	std::unordered_map<int, GameObject*>::iterator it;
+
+	for (it = gameManager->listOfPlayers.begin(); it != gameManager->listOfPlayers.end(); ++it)
+	{
+
+		Multiplayer::Player* player = listOfPlayers[it->first];
+
+		player->set_state(0);
+		player->set_clientid(it->first);
+		player->set_allocated_position((GetVector3(it->second->model->transform.position)));
+		player->set_allocated_rotation((GetVector3(it->second->model->transform.rotation)));
+		player->set_allocated_color(GetVector3(it->second->model->meshes[0]->material->AsMaterial()->GetBaseColor()));
+		player->set_allocated_velocity((GetVector3(it->second->phyObj->velocity)));
+
+	}
+
+	for (it = gameManager->listOfPlayers.begin(); it != gameManager->listOfPlayers.end(); ++it)
+	{
+		server->SendCommand(it->first, GAME_SCENE, gameScene);
+	}
+
+}
+
+
+void NetworkManager::OnCommandRecv(int id, Multiplayer::CommandAndData commandData)
+{
+
 }
 
 
@@ -83,16 +100,14 @@ void NetworkManager::RemoveFromRendererAndPhysics(Renderer* renderer, PhysicsEng
 {
 }
 
-
-
-void NetworkManager::AddPlayerToList(int id, const PlayerData& playerData)
+void NetworkManager::AddPlayerToList(int id, Multiplayer::Player* player)
 {
-	listOfPlayers[id] = playerData;
+	listOfPlayers[id] = player;
 }
 
 bool NetworkManager::CheckIfPlayerExists(int id)
 {
-	std::unordered_map<int, PlayerData>::iterator it = listOfPlayers.find(id);
+	std::unordered_map<int, Multiplayer::Player*>::iterator it = listOfPlayers.find(id);
 
 	if (it == listOfPlayers.end())
 	{

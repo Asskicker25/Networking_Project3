@@ -906,12 +906,14 @@ class Player final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kPositionFieldNumber = 2,
-    kVelocityFieldNumber = 3,
-    kRotationFieldNumber = 4,
-    kStateFieldNumber = 1,
+    kPositionFieldNumber = 3,
+    kColorFieldNumber = 4,
+    kVelocityFieldNumber = 5,
+    kRotationFieldNumber = 6,
+    kClientIdFieldNumber = 1,
+    kStateFieldNumber = 2,
   };
-  // optional .Multiplayer.vector3 position = 2;
+  // optional .Multiplayer.vector3 position = 3;
   bool has_position() const;
   private:
   bool _internal_has_position() const;
@@ -929,7 +931,25 @@ class Player final :
       ::Multiplayer::vector3* position);
   ::Multiplayer::vector3* unsafe_arena_release_position();
 
-  // optional .Multiplayer.vector3 velocity = 3;
+  // optional .Multiplayer.vector3 color = 4;
+  bool has_color() const;
+  private:
+  bool _internal_has_color() const;
+  public:
+  void clear_color();
+  const ::Multiplayer::vector3& color() const;
+  PROTOBUF_MUST_USE_RESULT ::Multiplayer::vector3* release_color();
+  ::Multiplayer::vector3* mutable_color();
+  void set_allocated_color(::Multiplayer::vector3* color);
+  private:
+  const ::Multiplayer::vector3& _internal_color() const;
+  ::Multiplayer::vector3* _internal_mutable_color();
+  public:
+  void unsafe_arena_set_allocated_color(
+      ::Multiplayer::vector3* color);
+  ::Multiplayer::vector3* unsafe_arena_release_color();
+
+  // optional .Multiplayer.vector3 velocity = 5;
   bool has_velocity() const;
   private:
   bool _internal_has_velocity() const;
@@ -947,7 +967,7 @@ class Player final :
       ::Multiplayer::vector3* velocity);
   ::Multiplayer::vector3* unsafe_arena_release_velocity();
 
-  // optional .Multiplayer.vector3 rotation = 4;
+  // optional .Multiplayer.vector3 rotation = 6;
   bool has_rotation() const;
   private:
   bool _internal_has_rotation() const;
@@ -965,7 +985,20 @@ class Player final :
       ::Multiplayer::vector3* rotation);
   ::Multiplayer::vector3* unsafe_arena_release_rotation();
 
-  // required int32 state = 1;
+  // required int32 clientId = 1;
+  bool has_clientid() const;
+  private:
+  bool _internal_has_clientid() const;
+  public:
+  void clear_clientid();
+  ::PROTOBUF_NAMESPACE_ID::int32 clientid() const;
+  void set_clientid(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_clientid() const;
+  void _internal_set_clientid(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // required int32 state = 2;
   bool has_state() const;
   private:
   bool _internal_has_state() const;
@@ -982,14 +1015,19 @@ class Player final :
  private:
   class _Internal;
 
+  // helper for ByteSizeLong()
+  size_t RequiredFieldsByteSizeFallback() const;
+
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::Multiplayer::vector3* position_;
+  ::Multiplayer::vector3* color_;
   ::Multiplayer::vector3* velocity_;
   ::Multiplayer::vector3* rotation_;
+  ::PROTOBUF_NAMESPACE_ID::int32 clientid_;
   ::PROTOBUF_NAMESPACE_ID::int32 state_;
   friend struct ::TableStruct_MultiplayerProtoBuf_2eproto;
 };
@@ -1648,9 +1686,37 @@ inline void UserInput::set_input(::PROTOBUF_NAMESPACE_ID::int32 value) {
 
 // Player
 
-// required int32 state = 1;
+// required int32 clientId = 1;
+inline bool Player::_internal_has_clientid() const {
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  return value;
+}
+inline bool Player::has_clientid() const {
+  return _internal_has_clientid();
+}
+inline void Player::clear_clientid() {
+  clientid_ = 0;
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Player::_internal_clientid() const {
+  return clientid_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Player::clientid() const {
+  // @@protoc_insertion_point(field_get:Multiplayer.Player.clientId)
+  return _internal_clientid();
+}
+inline void Player::_internal_set_clientid(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _has_bits_[0] |= 0x00000010u;
+  clientid_ = value;
+}
+inline void Player::set_clientid(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_clientid(value);
+  // @@protoc_insertion_point(field_set:Multiplayer.Player.clientId)
+}
+
+// required int32 state = 2;
 inline bool Player::_internal_has_state() const {
-  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  bool value = (_has_bits_[0] & 0x00000020u) != 0;
   return value;
 }
 inline bool Player::has_state() const {
@@ -1658,7 +1724,7 @@ inline bool Player::has_state() const {
 }
 inline void Player::clear_state() {
   state_ = 0;
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000020u;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 Player::_internal_state() const {
   return state_;
@@ -1668,7 +1734,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 Player::state() const {
   return _internal_state();
 }
 inline void Player::_internal_set_state(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _has_bits_[0] |= 0x00000008u;
+  _has_bits_[0] |= 0x00000020u;
   state_ = value;
 }
 inline void Player::set_state(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -1676,7 +1742,7 @@ inline void Player::set_state(::PROTOBUF_NAMESPACE_ID::int32 value) {
   // @@protoc_insertion_point(field_set:Multiplayer.Player.state)
 }
 
-// optional .Multiplayer.vector3 position = 2;
+// optional .Multiplayer.vector3 position = 3;
 inline bool Player::_internal_has_position() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || position_ != nullptr);
@@ -1766,9 +1832,99 @@ inline void Player::set_allocated_position(::Multiplayer::vector3* position) {
   // @@protoc_insertion_point(field_set_allocated:Multiplayer.Player.position)
 }
 
-// optional .Multiplayer.vector3 velocity = 3;
-inline bool Player::_internal_has_velocity() const {
+// optional .Multiplayer.vector3 color = 4;
+inline bool Player::_internal_has_color() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  PROTOBUF_ASSUME(!value || color_ != nullptr);
+  return value;
+}
+inline bool Player::has_color() const {
+  return _internal_has_color();
+}
+inline void Player::clear_color() {
+  if (color_ != nullptr) color_->Clear();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const ::Multiplayer::vector3& Player::_internal_color() const {
+  const ::Multiplayer::vector3* p = color_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Multiplayer::vector3&>(
+      ::Multiplayer::_vector3_default_instance_);
+}
+inline const ::Multiplayer::vector3& Player::color() const {
+  // @@protoc_insertion_point(field_get:Multiplayer.Player.color)
+  return _internal_color();
+}
+inline void Player::unsafe_arena_set_allocated_color(
+    ::Multiplayer::vector3* color) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(color_);
+  }
+  color_ = color;
+  if (color) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Multiplayer.Player.color)
+}
+inline ::Multiplayer::vector3* Player::release_color() {
+  _has_bits_[0] &= ~0x00000002u;
+  ::Multiplayer::vector3* temp = color_;
+  color_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Multiplayer::vector3* Player::unsafe_arena_release_color() {
+  // @@protoc_insertion_point(field_release:Multiplayer.Player.color)
+  _has_bits_[0] &= ~0x00000002u;
+  ::Multiplayer::vector3* temp = color_;
+  color_ = nullptr;
+  return temp;
+}
+inline ::Multiplayer::vector3* Player::_internal_mutable_color() {
+  _has_bits_[0] |= 0x00000002u;
+  if (color_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Multiplayer::vector3>(GetArenaForAllocation());
+    color_ = p;
+  }
+  return color_;
+}
+inline ::Multiplayer::vector3* Player::mutable_color() {
+  ::Multiplayer::vector3* _msg = _internal_mutable_color();
+  // @@protoc_insertion_point(field_mutable:Multiplayer.Player.color)
+  return _msg;
+}
+inline void Player::set_allocated_color(::Multiplayer::vector3* color) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete color_;
+  }
+  if (color) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::Multiplayer::vector3>::GetOwningArena(color);
+    if (message_arena != submessage_arena) {
+      color = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, color, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  color_ = color;
+  // @@protoc_insertion_point(field_set_allocated:Multiplayer.Player.color)
+}
+
+// optional .Multiplayer.vector3 velocity = 5;
+inline bool Player::_internal_has_velocity() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
   PROTOBUF_ASSUME(!value || velocity_ != nullptr);
   return value;
 }
@@ -1777,7 +1933,7 @@ inline bool Player::has_velocity() const {
 }
 inline void Player::clear_velocity() {
   if (velocity_ != nullptr) velocity_->Clear();
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline const ::Multiplayer::vector3& Player::_internal_velocity() const {
   const ::Multiplayer::vector3* p = velocity_;
@@ -1795,14 +1951,14 @@ inline void Player::unsafe_arena_set_allocated_velocity(
   }
   velocity_ = velocity;
   if (velocity) {
-    _has_bits_[0] |= 0x00000002u;
+    _has_bits_[0] |= 0x00000004u;
   } else {
-    _has_bits_[0] &= ~0x00000002u;
+    _has_bits_[0] &= ~0x00000004u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Multiplayer.Player.velocity)
 }
 inline ::Multiplayer::vector3* Player::release_velocity() {
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
   ::Multiplayer::vector3* temp = velocity_;
   velocity_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -1818,13 +1974,13 @@ inline ::Multiplayer::vector3* Player::release_velocity() {
 }
 inline ::Multiplayer::vector3* Player::unsafe_arena_release_velocity() {
   // @@protoc_insertion_point(field_release:Multiplayer.Player.velocity)
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
   ::Multiplayer::vector3* temp = velocity_;
   velocity_ = nullptr;
   return temp;
 }
 inline ::Multiplayer::vector3* Player::_internal_mutable_velocity() {
-  _has_bits_[0] |= 0x00000002u;
+  _has_bits_[0] |= 0x00000004u;
   if (velocity_ == nullptr) {
     auto* p = CreateMaybeMessage<::Multiplayer::vector3>(GetArenaForAllocation());
     velocity_ = p;
@@ -1848,17 +2004,17 @@ inline void Player::set_allocated_velocity(::Multiplayer::vector3* velocity) {
       velocity = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, velocity, submessage_arena);
     }
-    _has_bits_[0] |= 0x00000002u;
+    _has_bits_[0] |= 0x00000004u;
   } else {
-    _has_bits_[0] &= ~0x00000002u;
+    _has_bits_[0] &= ~0x00000004u;
   }
   velocity_ = velocity;
   // @@protoc_insertion_point(field_set_allocated:Multiplayer.Player.velocity)
 }
 
-// optional .Multiplayer.vector3 rotation = 4;
+// optional .Multiplayer.vector3 rotation = 6;
 inline bool Player::_internal_has_rotation() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
   PROTOBUF_ASSUME(!value || rotation_ != nullptr);
   return value;
 }
@@ -1867,7 +2023,7 @@ inline bool Player::has_rotation() const {
 }
 inline void Player::clear_rotation() {
   if (rotation_ != nullptr) rotation_->Clear();
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline const ::Multiplayer::vector3& Player::_internal_rotation() const {
   const ::Multiplayer::vector3* p = rotation_;
@@ -1885,14 +2041,14 @@ inline void Player::unsafe_arena_set_allocated_rotation(
   }
   rotation_ = rotation;
   if (rotation) {
-    _has_bits_[0] |= 0x00000004u;
+    _has_bits_[0] |= 0x00000008u;
   } else {
-    _has_bits_[0] &= ~0x00000004u;
+    _has_bits_[0] &= ~0x00000008u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Multiplayer.Player.rotation)
 }
 inline ::Multiplayer::vector3* Player::release_rotation() {
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000008u;
   ::Multiplayer::vector3* temp = rotation_;
   rotation_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -1908,13 +2064,13 @@ inline ::Multiplayer::vector3* Player::release_rotation() {
 }
 inline ::Multiplayer::vector3* Player::unsafe_arena_release_rotation() {
   // @@protoc_insertion_point(field_release:Multiplayer.Player.rotation)
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000008u;
   ::Multiplayer::vector3* temp = rotation_;
   rotation_ = nullptr;
   return temp;
 }
 inline ::Multiplayer::vector3* Player::_internal_mutable_rotation() {
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000008u;
   if (rotation_ == nullptr) {
     auto* p = CreateMaybeMessage<::Multiplayer::vector3>(GetArenaForAllocation());
     rotation_ = p;
@@ -1938,9 +2094,9 @@ inline void Player::set_allocated_rotation(::Multiplayer::vector3* rotation) {
       rotation = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, rotation, submessage_arena);
     }
-    _has_bits_[0] |= 0x00000004u;
+    _has_bits_[0] |= 0x00000008u;
   } else {
-    _has_bits_[0] &= ~0x00000004u;
+    _has_bits_[0] &= ~0x00000008u;
   }
   rotation_ = rotation;
   // @@protoc_insertion_point(field_set_allocated:Multiplayer.Player.rotation)

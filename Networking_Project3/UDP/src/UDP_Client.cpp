@@ -97,14 +97,16 @@ void UDP_Client::HandleCommandRecv()
 {
 	int result, error;
 
+	const int bufferLen = (NUM_OF_PLAYER * PLAYER_SIZE) + COMMAND_SIZE;
+
 	while (true)
 	{
-		char buffer[5];
+		char buffer[bufferLen];
 
 		sockaddr_in address;
 		int length = sizeof(address);
 
-		result = recvfrom(serverSocket, buffer, 5, 0, (SOCKADDR*)&address, &length);
+		result = recvfrom(serverSocket, buffer, bufferLen, 0, (SOCKADDR*)&address, &length);
 
 		if (result == SOCKET_ERROR)
 		{
@@ -113,26 +115,12 @@ void UDP_Client::HandleCommandRecv()
 		}
 		else
 		{
-			Multiplayer::LengthPrefix lengthPrefix;
-
-			lengthPrefix.ParseFromArray(buffer, 5);
-
-			std::string serializedMessageData(lengthPrefix.messagelength(), '\0');
-
-			result = recvfrom(serverSocket, &serializedMessageData[0], lengthPrefix.messagelength(), 0, (SOCKADDR*)&addr, &addrLen);
-
 			if (result > 0)
 			{
 				Multiplayer::CommandAndData commandData;
+				commandData.ParseFromArray(buffer, bufferLen);
 
-				if (commandData.ParseFromString(serializedMessageData))
-				{
-					OnCommandReceived(commandData.clientid(), commandData);
-				}
-				else
-				{
-					std::cout << "Client :Message Parsing failed " << std::endl;
-				}
+				OnCommandReceived(commandData.clientid(), commandData);
 			}
 		}
 	}

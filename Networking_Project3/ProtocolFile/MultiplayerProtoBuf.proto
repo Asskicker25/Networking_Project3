@@ -28,10 +28,12 @@ message UserInput
 
 message Player 
 {
-    required int32 state = 1;
-    optional vector3 position = 2;
-    optional vector3 velocity = 3;
-    optional vector3 rotation = 4;
+    required int32 clientId = 1;
+    required int32 state = 2;
+    optional vector3 position = 3;
+    optional vector3 color = 4;
+    optional vector3 velocity = 5;
+    optional vector3 rotation = 6;
 }
 
 message Bullet 

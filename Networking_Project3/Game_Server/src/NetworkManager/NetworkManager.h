@@ -10,14 +10,6 @@ enum PlayerState
 	NOT_ACTIVE = 1
 };
 
-struct PlayerData
-{
-	PlayerState state;
-	glm::vec3 pos;
-	glm::vec3 rot;
-	glm::vec3 vel;
-};
-
 
 class NetworkManager : public GameObject
 {
@@ -26,15 +18,22 @@ public:
 	
 	UDP_Server* server;
 	GameManager* gameManager;
+	Multiplayer::GameScene gameScene;
 
 	NetworkManager();
 	void Initialize();
 
+	void BroadcastToClients();
+
 private:
 
-	std::unordered_map<int, PlayerData> listOfPlayers;
+	float timeStep = 0;
+	float broadcastInterval = 0.2f;
 
-	void AddPlayerToList(int id, const PlayerData& playerData);
+
+	std::unordered_map<int, Multiplayer::Player*> listOfPlayers;
+
+	void AddPlayerToList(int id, Multiplayer::Player* player);
 	bool CheckIfPlayerExists(int id);
 
 	void OnCommandRecv(int id, Multiplayer::CommandAndData commandData);

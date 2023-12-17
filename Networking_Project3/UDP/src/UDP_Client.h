@@ -36,6 +36,10 @@ private:
 	int clientID = 0;
 	int port;
 
+	static const int NUM_OF_PLAYER = 2;
+	static const int PLAYER_SIZE = 74;
+	static const int COMMAND_SIZE = 6;
+
 	std::string ipAddress;
 	sockaddr_in addr;
 

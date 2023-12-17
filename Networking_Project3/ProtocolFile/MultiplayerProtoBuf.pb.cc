@@ -72,8 +72,10 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UserInputDefaultTypeInternal _U
 constexpr Player::Player(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : position_(nullptr)
+  , color_(nullptr)
   , velocity_(nullptr)
   , rotation_(nullptr)
+  , clientid_(0)
   , state_(0){}
 struct PlayerDefaultTypeInternal {
   constexpr PlayerDefaultTypeInternal()
@@ -163,14 +165,18 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_MultiplayerProtoBuf_2eproto::o
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Multiplayer::Player, clientid_),
   PROTOBUF_FIELD_OFFSET(::Multiplayer::Player, state_),
   PROTOBUF_FIELD_OFFSET(::Multiplayer::Player, position_),
+  PROTOBUF_FIELD_OFFSET(::Multiplayer::Player, color_),
   PROTOBUF_FIELD_OFFSET(::Multiplayer::Player, velocity_),
   PROTOBUF_FIELD_OFFSET(::Multiplayer::Player, rotation_),
-  3,
+  4,
+  5,
   0,
   1,
   2,
+  3,
   PROTOBUF_FIELD_OFFSET(::Multiplayer::Bullet, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::Multiplayer::Bullet, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -197,9 +203,9 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 12, 19, -1, sizeof(::Multiplayer::LengthPrefix)},
   { 20, 29, -1, sizeof(::Multiplayer::CommandAndData)},
   { 32, 39, -1, sizeof(::Multiplayer::UserInput)},
-  { 40, 50, -1, sizeof(::Multiplayer::Player)},
-  { 54, 63, -1, sizeof(::Multiplayer::Bullet)},
-  { 66, -1, -1, sizeof(::Multiplayer::GameScene)},
+  { 40, 52, -1, sizeof(::Multiplayer::Player)},
+  { 58, 67, -1, sizeof(::Multiplayer::Bullet)},
+  { 70, -1, -1, sizeof(::Multiplayer::GameScene)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -218,19 +224,21 @@ const char descriptor_table_protodef_MultiplayerProtoBuf_2eproto[] PROTOBUF_SECT
   " \002(\002\"%\n\014LengthPrefix\022\025\n\rmessageLength\030\002 "
   "\002(\007\"A\n\016CommandAndData\022\020\n\010clientId\030\002 \002(\005\022"
   "\017\n\007command\030\003 \002(\005\022\014\n\004data\030\004 \002(\014\"\032\n\tUserIn"
-  "put\022\r\n\005input\030\002 \002(\005\"\217\001\n\006Player\022\r\n\005state\030\001"
+  "put\022\r\n\005input\030\002 \002(\005\"\306\001\n\006Player\022\020\n\010clientI"
+  "d\030\001 \002(\005\022\r\n\005state\030\002 \002(\005\022&\n\010position\030\003 \001(\013"
+  "2\024.Multiplayer.vector3\022#\n\005color\030\004 \001(\0132\024."
+  "Multiplayer.vector3\022&\n\010velocity\030\005 \001(\0132\024."
+  "Multiplayer.vector3\022&\n\010rotation\030\006 \001(\0132\024."
+  "Multiplayer.vector3\"g\n\006Bullet\022\r\n\005state\030\001"
   " \002(\005\022&\n\010position\030\002 \001(\0132\024.Multiplayer.vec"
   "tor3\022&\n\010velocity\030\003 \001(\0132\024.Multiplayer.vec"
-  "tor3\022&\n\010rotation\030\004 \001(\0132\024.Multiplayer.vec"
-  "tor3\"g\n\006Bullet\022\r\n\005state\030\001 \002(\005\022&\n\010positio"
-  "n\030\002 \001(\0132\024.Multiplayer.vector3\022&\n\010velocit"
-  "y\030\003 \001(\0132\024.Multiplayer.vector3\"W\n\tGameSce"
-  "ne\022$\n\007players\030\002 \003(\0132\023.Multiplayer.Player"
-  "\022$\n\007bullets\030\003 \003(\0132\023.Multiplayer.Bullet"
+  "tor3\"W\n\tGameScene\022$\n\007players\030\002 \003(\0132\023.Mul"
+  "tiplayer.Player\022$\n\007bullets\030\003 \003(\0132\023.Multi"
+  "player.Bullet"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_MultiplayerProtoBuf_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_MultiplayerProtoBuf_2eproto = {
-  false, false, 558, descriptor_table_protodef_MultiplayerProtoBuf_2eproto, "MultiplayerProtoBuf.proto", 
+  false, false, 613, descriptor_table_protodef_MultiplayerProtoBuf_2eproto, "MultiplayerProtoBuf.proto", 
   &descriptor_table_MultiplayerProtoBuf_2eproto_once, nullptr, 0, 7,
   schemas, file_default_instances, TableStruct_MultiplayerProtoBuf_2eproto::offsets,
   file_level_metadata_MultiplayerProtoBuf_2eproto, file_level_enum_descriptors_MultiplayerProtoBuf_2eproto, file_level_service_descriptors_MultiplayerProtoBuf_2eproto,
@@ -1219,29 +1227,40 @@ void UserInput::InternalSwap(UserInput* other) {
 class Player::_Internal {
  public:
   using HasBits = decltype(std::declval<Player>()._has_bits_);
+  static void set_has_clientid(HasBits* has_bits) {
+    (*has_bits)[0] |= 16u;
+  }
   static void set_has_state(HasBits* has_bits) {
-    (*has_bits)[0] |= 8u;
+    (*has_bits)[0] |= 32u;
   }
   static const ::Multiplayer::vector3& position(const Player* msg);
   static void set_has_position(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
+  static const ::Multiplayer::vector3& color(const Player* msg);
+  static void set_has_color(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
   static const ::Multiplayer::vector3& velocity(const Player* msg);
   static void set_has_velocity(HasBits* has_bits) {
-    (*has_bits)[0] |= 2u;
+    (*has_bits)[0] |= 4u;
   }
   static const ::Multiplayer::vector3& rotation(const Player* msg);
   static void set_has_rotation(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
+    (*has_bits)[0] |= 8u;
   }
   static bool MissingRequiredFields(const HasBits& has_bits) {
-    return ((has_bits[0] & 0x00000008) ^ 0x00000008) != 0;
+    return ((has_bits[0] & 0x00000030) ^ 0x00000030) != 0;
   }
 };
 
 const ::Multiplayer::vector3&
 Player::_Internal::position(const Player* msg) {
   return *msg->position_;
+}
+const ::Multiplayer::vector3&
+Player::_Internal::color(const Player* msg) {
+  return *msg->color_;
 }
 const ::Multiplayer::vector3&
 Player::_Internal::velocity(const Player* msg) {
@@ -1269,6 +1288,11 @@ Player::Player(const Player& from)
   } else {
     position_ = nullptr;
   }
+  if (from._internal_has_color()) {
+    color_ = new ::Multiplayer::vector3(*from.color_);
+  } else {
+    color_ = nullptr;
+  }
   if (from._internal_has_velocity()) {
     velocity_ = new ::Multiplayer::vector3(*from.velocity_);
   } else {
@@ -1279,7 +1303,9 @@ Player::Player(const Player& from)
   } else {
     rotation_ = nullptr;
   }
-  state_ = from.state_;
+  ::memcpy(&clientid_, &from.clientid_,
+    static_cast<size_t>(reinterpret_cast<char*>(&state_) -
+    reinterpret_cast<char*>(&clientid_)) + sizeof(state_));
   // @@protoc_insertion_point(copy_constructor:Multiplayer.Player)
 }
 
@@ -1300,6 +1326,7 @@ Player::~Player() {
 inline void Player::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete position_;
+  if (this != internal_default_instance()) delete color_;
   if (this != internal_default_instance()) delete velocity_;
   if (this != internal_default_instance()) delete rotation_;
 }
@@ -1321,21 +1348,29 @@ void Player::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       GOOGLE_DCHECK(position_ != nullptr);
       position_->Clear();
     }
     if (cached_has_bits & 0x00000002u) {
+      GOOGLE_DCHECK(color_ != nullptr);
+      color_->Clear();
+    }
+    if (cached_has_bits & 0x00000004u) {
       GOOGLE_DCHECK(velocity_ != nullptr);
       velocity_->Clear();
     }
-    if (cached_has_bits & 0x00000004u) {
+    if (cached_has_bits & 0x00000008u) {
       GOOGLE_DCHECK(rotation_ != nullptr);
       rotation_->Clear();
     }
   }
-  state_ = 0;
+  if (cached_has_bits & 0x00000030u) {
+    ::memset(&clientid_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&state_) -
+        reinterpret_cast<char*>(&clientid_)) + sizeof(state_));
+  }
   _has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -1347,34 +1382,51 @@ const char* Player::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::int
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // required int32 state = 1;
+      // required int32 clientId = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          _Internal::set_has_clientid(&has_bits);
+          clientid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // required int32 state = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
           _Internal::set_has_state(&has_bits);
           state_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // optional .Multiplayer.vector3 position = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+      // optional .Multiplayer.vector3 position = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_position(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // optional .Multiplayer.vector3 velocity = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+      // optional .Multiplayer.vector3 color = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+          ptr = ctx->ParseMessage(_internal_mutable_color(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .Multiplayer.vector3 velocity = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
           ptr = ctx->ParseMessage(_internal_mutable_velocity(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // optional .Multiplayer.vector3 rotation = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+      // optional .Multiplayer.vector3 rotation = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 50)) {
           ptr = ctx->ParseMessage(_internal_mutable_rotation(), ptr);
           CHK_(ptr);
         } else
@@ -1411,34 +1463,48 @@ failure:
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // required int32 state = 1;
-  if (cached_has_bits & 0x00000008u) {
+  // required int32 clientId = 1;
+  if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_state(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_clientid(), target);
   }
 
-  // optional .Multiplayer.vector3 position = 2;
+  // required int32 state = 2;
+  if (cached_has_bits & 0x00000020u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_state(), target);
+  }
+
+  // optional .Multiplayer.vector3 position = 3;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        2, _Internal::position(this), target, stream);
+        3, _Internal::position(this), target, stream);
   }
 
-  // optional .Multiplayer.vector3 velocity = 3;
+  // optional .Multiplayer.vector3 color = 4;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        3, _Internal::velocity(this), target, stream);
+        4, _Internal::color(this), target, stream);
   }
 
-  // optional .Multiplayer.vector3 rotation = 4;
+  // optional .Multiplayer.vector3 velocity = 5;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        4, _Internal::rotation(this), target, stream);
+        5, _Internal::velocity(this), target, stream);
+  }
+
+  // optional .Multiplayer.vector3 rotation = 6;
+  if (cached_has_bits & 0x00000008u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        6, _Internal::rotation(this), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1449,36 +1515,65 @@ failure:
   return target;
 }
 
+size_t Player::RequiredFieldsByteSizeFallback() const {
+// @@protoc_insertion_point(required_fields_byte_size_fallback_start:Multiplayer.Player)
+  size_t total_size = 0;
+
+  if (_internal_has_clientid()) {
+    // required int32 clientId = 1;
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_clientid());
+  }
+
+  if (_internal_has_state()) {
+    // required int32 state = 2;
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_state());
+  }
+
+  return total_size;
+}
 size_t Player::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:Multiplayer.Player)
   size_t total_size = 0;
 
-  // required int32 state = 1;
-  if (_internal_has_state()) {
+  if (((_has_bits_[0] & 0x00000030) ^ 0x00000030) == 0) {  // All required fields are present.
+    // required int32 clientId = 1;
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_clientid());
+
+    // required int32 state = 2;
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_state());
+
+  } else {
+    total_size += RequiredFieldsByteSizeFallback();
   }
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
-    // optional .Multiplayer.vector3 position = 2;
+  if (cached_has_bits & 0x0000000fu) {
+    // optional .Multiplayer.vector3 position = 3;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *position_);
     }
 
-    // optional .Multiplayer.vector3 velocity = 3;
+    // optional .Multiplayer.vector3 color = 4;
     if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *color_);
+    }
+
+    // optional .Multiplayer.vector3 velocity = 5;
+    if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *velocity_);
     }
 
-    // optional .Multiplayer.vector3 rotation = 4;
-    if (cached_has_bits & 0x00000004u) {
+    // optional .Multiplayer.vector3 rotation = 6;
+    if (cached_has_bits & 0x00000008u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *rotation_);
@@ -1508,17 +1603,23 @@ void Player::MergeFrom(const Player& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000003fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_mutable_position()->::Multiplayer::vector3::MergeFrom(from._internal_position());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_mutable_velocity()->::Multiplayer::vector3::MergeFrom(from._internal_velocity());
+      _internal_mutable_color()->::Multiplayer::vector3::MergeFrom(from._internal_color());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_mutable_rotation()->::Multiplayer::vector3::MergeFrom(from._internal_rotation());
+      _internal_mutable_velocity()->::Multiplayer::vector3::MergeFrom(from._internal_velocity());
     }
     if (cached_has_bits & 0x00000008u) {
+      _internal_mutable_rotation()->::Multiplayer::vector3::MergeFrom(from._internal_rotation());
+    }
+    if (cached_has_bits & 0x00000010u) {
+      clientid_ = from.clientid_;
+    }
+    if (cached_has_bits & 0x00000020u) {
       state_ = from.state_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -1537,6 +1638,9 @@ bool Player::IsInitialized() const {
   if (_Internal::MissingRequiredFields(_has_bits_)) return false;
   if (_internal_has_position()) {
     if (!position_->IsInitialized()) return false;
+  }
+  if (_internal_has_color()) {
+    if (!color_->IsInitialized()) return false;
   }
   if (_internal_has_velocity()) {
     if (!velocity_->IsInitialized()) return false;
