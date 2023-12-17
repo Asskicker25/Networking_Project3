@@ -83,6 +83,10 @@ void NetworkManager::BroadcastToClients()
 
 void NetworkManager::OnCommandRecv(int id, Multiplayer::CommandAndData commandData)
 {
+	Multiplayer::UserInput input;
+	input.ParseFromString(commandData.data());
+
+	std::cout << input.input() << std::endl;
 
 }
 

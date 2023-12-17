@@ -7,6 +7,16 @@ static enum Command
 {
 	USER_INPUT = 0,
 	GAME_SCENE = 1
+
+};
+
+static enum PlayerInput
+{
+	FORWARD = 0,
+	BACKWARD = 1,
+	TURN_RIGHT = 2,
+	TURN_LEFT = 3,
+	FIRE = 4
 };
 
 struct LengthPrefixedMessage

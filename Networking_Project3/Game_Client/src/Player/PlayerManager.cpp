@@ -23,7 +23,14 @@ void PlayerManager::AddPlayer(int id)
 {
 	if (CheckIfPlayerExists(id)) return;
 
-	listOfPlayers[id] = CreatePlayer();
+	GameObject* player = CreatePlayer();
+
+	listOfPlayers[id] = player;
+
+	if (id == clientId)
+	{
+		playerController->SetPlayer(player);
+	}
 }
 
 bool PlayerManager::CheckIfPlayerExists(int id)

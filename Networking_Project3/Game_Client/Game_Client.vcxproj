@@ -137,7 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="PlayerController.h" />
+    <ClInclude Include="src\Player\PlayerController.h" />
     <ClInclude Include="src\Player\PlayerManager.h" />
     <ClInclude Include="src\Player\PlayerFactory.h" />
     <ClInclude Include="src\Player\Player.h" />
@@ -156,7 +156,7 @@
     <ClInclude Include="src\Utilities\RendererInstance.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="PlayerController.cpp" />
+    <ClCompile Include="src\Player\PlayerController.cpp" />
     <ClCompile Include="src\Player\PlayerManager.cpp" />
     <ClCompile Include="src\Player\PlayerFactory.cpp" />
     <ClCompile Include="src\Player\Player.cpp" />

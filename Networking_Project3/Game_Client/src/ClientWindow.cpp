@@ -4,6 +4,7 @@
 #include <thread>
 #include "NetworkManager/NetworkManager.h"
 #include "Player/PlayerManager.h"
+#include "Player/PlayerController.h"
 
 void ClientWindow::SetClientId(const int& id)
 {
@@ -15,6 +16,8 @@ void ClientWindow::SetUp()
 	physicsEngine.fixedStepTime = 0.01f;
 	physicsEngine.gravity.y = 0;
 	moveSpeed = 10;
+
+	stopKeyCallback = true;
 
 
 	RendererInstance::GetInstance().SetRenderer(&renderer);
@@ -40,11 +43,15 @@ void ClientWindow::SetUp()
 
 #pragma endregion
 
-	NetworkManager* networkManager = new NetworkManager();
-	PlayerManager::GetInstance().Print();
+	PlayerController* playerController = new PlayerController();
+	PlayerManager::GetInstance().playerController = playerController;
+	PlayerManager::GetInstance().clientId = clientId;
 
+	NetworkManager* networkManager = new NetworkManager();
 	networkManager->Initialize(clientId);
 
+	playerController->client = networkManager->client;
+	
 	EntityManager::GetInstance().Start();
 }
 
@@ -78,6 +85,18 @@ void ClientWindow::ProcessInput(GLFWwindow* window)
 
 void ClientWindow::KeyCallBack(GLFWwindow* window, int& key, int& scancode, int& action, int& mods)
 {
+	if (action == GLFW_PRESS)
+	{
+		InputManager::GetInstance().OnKeyPressed(key);
+	}
+	else if (action == GLFW_RELEASE)
+	{
+		InputManager::GetInstance().OnKeyReleased(key);
+	}
+	else if (action == GLFW_REPEAT)
+	{
+		InputManager::GetInstance().OnKeyHeld(key);
+	}
 }
 
 void ClientWindow::MouseButtonCallback(GLFWwindow* window, int& button, int& action, int& mods)

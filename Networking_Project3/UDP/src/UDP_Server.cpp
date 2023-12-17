@@ -156,8 +156,6 @@ void UDP_Server::HandleCommandSend()
 			ServerToClientMessages message = listOfMessagesToSend.front();
 			listOfMessagesToSend.pop();
 
-			std::cout << "Client Id : " << message.id << std::endl;
-
 			sockaddr_in clientInfo = listOfClients[message.id];
 
 			result = sendto(listenSocket, message.message.message.c_str(), message.message.message.size(), 0, (SOCKADDR*)&clientInfo, clientInfoLength);
@@ -184,8 +182,6 @@ bool UDP_Server::ClientExists(int id)
 void UDP_Server::SendCommand(int id, const Command& command, const google::protobuf::Message& message)
 {
 	LengthPrefixedMessage serializedString = SerializeWithCommandAndLengthPrefix(id, command, message);
-
-	std::cout << "Size : " << serializedString.message.size() << std::endl;
 
 	listOfMessagesToSend.push(ServerToClientMessages{ id,serializedString });
 }
