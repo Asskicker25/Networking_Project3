@@ -25,7 +25,7 @@ void UDP_Client::InitializeClient(const std::string& ipAddress, const int& port)
 		return;
 	}
 
-	std::cout << "Client : Winsock Initialized Successfully" << result << std::endl;
+	std::cout << "Client : Winsock Initialized Successfully" << std::endl;
 
 #pragma endregion
 
@@ -36,27 +36,22 @@ void UDP_Client::InitializeClient(const std::string& ipAddress, const int& port)
 	if (serverSocket == INVALID_SOCKET) 
 	{
 		std::cout << "Client : Socket creation failed with error : " << WSAGetLastError() << std::endl;
-		cleanupEvents.Addfunction("WSACleanup", WSACleanup);
-		cleanupEvents.Invoke();
+		//cleanupEvents.Addfunction("WSACleanup", WSACleanup);
+		//cleanupEvents.Invoke();
 		return;
 	}
 
-	sockaddr_in addr;
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons(port);
 	addr.sin_addr.s_addr = inet_addr(ipAddress.c_str());
 	addrLen = sizeof(addr);
 
+	std::cout << "Address : " << addr.sin_addr.s_addr << std::endl;
+	std::cout << "Port : " << addr.sin_port << std::endl;
+
 #pragma endregion
 
 #pragma region Threads
-
-	std::thread serverRecvThread([this]()
-		{
-			HandleCommandRecv();
-		});
-
-	serverRecvThread.detach();
 
 	std::thread serverSendThread([this]()
 		{
@@ -65,13 +60,21 @@ void UDP_Client::InitializeClient(const std::string& ipAddress, const int& port)
 
 	serverSendThread.detach();
 
+	std::thread serverRecvThread([this]()
+		{
+			HandleCommandRecv();
+		});
+
+	serverRecvThread.detach();
+	
+
 #pragma endregion
 
 	while (true)
 	{
 	}
 
-	cleanupEvents.Invoke();
+	//cleanupEvents.Invoke();
 	return;
 }
 
@@ -82,15 +85,22 @@ void UDP_Client::HandleCommandRecv()
 	while (true)
 	{
 		char buffer[5];
-		int32_t messageLength;
 
-		result = recvfrom(serverSocket, buffer, 5, 0, (SOCKADDR*)&addr, &addrLen);
+		sockaddr_in address;
+		int length = sizeof(address);
 
-		if (result == SOCKET_ERROR)
+		if (serverSocket == INVALID_SOCKET) 
+		{
+			std::cout << "Client: Invalid socket descriptor." << std::endl;
+			return;
+		}
+
+		result = recvfrom(serverSocket, buffer, 5, 0, (SOCKADDR*)&address, &length);
+
+		if (result == SOCKET_ERROR) 
 		{
 			error = WSAGetLastError();
-			std::cout << "Client : Receiving message from Server failed with error : " << WSAGetLastError() << std::endl;
-			closesocket(serverSocket);
+			std::cout << "Client: Receiving message from Server failed with error: " << error << std::endl;
 		}
 		else
 		{
@@ -108,7 +118,7 @@ void UDP_Client::HandleCommandRecv()
 
 				if (commandData.ParseFromString(serializedMessageData))
 				{
-					OnCommandReceived(commandData);
+					OnCommandReceived(commandData.id(), commandData);
 				}
 				else
 				{

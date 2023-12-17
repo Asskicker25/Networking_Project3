@@ -38,11 +38,12 @@ void GameWindow::SetUp()
 	networkManager->Initialize();
 
 	EntityManager::GetInstance().Start();
-
 }
 
 void GameWindow::PreRender()
 {
+	physicsEngine.Update(Timer::GetInstance().deltaTime);
+	EntityManager::GetInstance().Update(Timer::GetInstance().deltaTime);
 }
 
 void GameWindow::PostRender()

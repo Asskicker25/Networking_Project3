@@ -19,16 +19,11 @@ void NetworkManager::Initialize()
 {
 	std::thread serverRecvThread([this]()
 		{
-			server->InitializeAndRunServer("127.0.0.1", 8017);
+			server->InitializeAndRunServer("127.0.0.1", 8412);
 		});
 
 	serverRecvThread.detach();
 }
-
-void NetworkManager::OnCommandRecv(int id, Multiplayer::CommandAndData commandData)
-{
-}
-
 
 void NetworkManager::Start()
 {
@@ -43,6 +38,10 @@ void NetworkManager::AddToRendererAndPhysics(Renderer* renderer, Shader* shader,
 }
 
 void NetworkManager::RemoveFromRendererAndPhysics(Renderer* renderer, PhysicsEngine* physicsEngine)
+{
+}
+
+void NetworkManager::OnCommandRecv(int id, Multiplayer::CommandAndData commandData)
 {
 }
 

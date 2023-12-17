@@ -52,6 +52,9 @@ void UDP_Server::InitializeAndRunServer(const std::string& ipAddress, const int&
 	addr.sin_port = htons(port);
 	addr.sin_addr.s_addr = inet_addr(ipAddress.c_str());
 
+	std::cout << "Address : " << addr.sin_addr.s_addr << std::endl;
+	std::cout << "Port : " << addr.sin_port << std::endl;
+
 	result = bind(listenSocket, (SOCKADDR*)&addr, sizeof(addr));
 	if (result == SOCKET_ERROR)
 	{

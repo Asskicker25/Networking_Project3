@@ -13,7 +13,6 @@ public:
 
 	void Initialize();
 
-
 private:
 
 	void OnCommandRecv(int id, Multiplayer::CommandAndData commandData);

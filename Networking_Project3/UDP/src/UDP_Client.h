@@ -35,12 +35,12 @@ private:
 	SOCKET serverSocket;
 	WSAData wsaData;
 
-	Events cleanupEvents;
+	//Events cleanupEvents;
 
 	int result, error, addrLen;
 
 	std::string ipAddress;
-	std::string port;
+	int port;
 
 	sockaddr_in addr;
 
@@ -57,7 +57,6 @@ public:
 
 	void SendCommand(const Command& command, const google::protobuf::Message& message);
 
-	std::function<void()> OnConnectedToServer = nullptr;
-	std::function<void(Multiplayer::CommandAndData)> OnCommandReceived = nullptr;
+	std::function<void(int id, Multiplayer::CommandAndData)> OnCommandReceived = nullptr;
 };
 
