@@ -1,0 +1,53 @@
+syntax = "proto2";
+
+package Multiplayer;
+
+message vector3
+{
+    required float x = 1;
+    required float y = 2;
+    required float z = 3;
+}
+
+message LengthPrefix
+{
+    required fixed32 messageLength = 1;
+}
+
+message CommandAndData
+{
+    required int32 id = 1;
+    required int32 command = 2;
+    required bytes data = 3;
+}
+
+message UserInput 
+{
+    required int32 input = 2; 
+}
+
+message Player 
+{
+    required int32 state = 1;
+    optional vector3 position = 2;
+    optional vector3 velocity = 3;
+    optional vector3 rotation = 4;
+}
+
+message Bullet 
+{
+    required int32 state = 1; 
+    optional vector3 position = 2;
+    optional vector3 velocity = 3;
+}
+
+message GameScene 
+{
+    repeated Player players = 2;
+    repeated Bullet bullets = 3;
+}
+
+
+
+
+
