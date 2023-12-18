@@ -22,13 +22,15 @@ private:
 
 	float speed = 1;
 	float spawnInterval = 2;
-	float bulletSpawnOffset = 0.1f;
+	float bulletSpawnOffset = 0.2f;
 
 	float timeStep = 0;
 
 	bool bulletSpawned = false;
 
 	glm::vec3 currentVelocity;
+
+	void OnBulletDestroy();
 
 
 	// Inherited via GameObject

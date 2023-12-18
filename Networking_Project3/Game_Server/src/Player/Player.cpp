@@ -77,6 +77,10 @@ void Player::UpdateInput(const InputAction& action, const PlayerInput& input)
 			if (bulletSpawned) return;
 
 			bullet = BulletManager::GetInstance().CreateBullet(pos, forward, bulletSpawnOffset);
+			bullet->OnBulletDestroy = [this]()
+				{
+					OnBulletDestroy();
+				};
 
 			bulletSpawned = true;
 			
@@ -109,6 +113,12 @@ void Player::UpdateInput(const InputAction& action, const PlayerInput& input)
 #pragma endregion
 
 
+}
+
+void Player::OnBulletDestroy()
+{
+	bullet = nullptr;
+	bulletSpawned = false;
 }
 
 void Player::Start()

@@ -6,14 +6,14 @@ class Bullet : public GameObject
 {
 public:
 
-	Bullet();
+	float speed = 0.5;
 
+	Bullet();
 	void CreateInstance(Model& model);
 	Transform* GetTransform() override;
 
-	float speed = 0.5;
+	std::function<void()> OnBulletDestroy;
 private:
-
 
 	// Inherited via GameObject
 	void Start() override;
@@ -21,4 +21,6 @@ private:
 	void AddToRendererAndPhysics(Renderer* renderer, Shader* shader, PhysicsEngine* physicsEngine) override;
 	void RemoveFromRendererAndPhysics(Renderer* renderer, PhysicsEngine* physicsEngine) override;
 };
+
+
 

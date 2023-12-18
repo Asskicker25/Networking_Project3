@@ -16,6 +16,13 @@ void Bullet::CreateInstance(Model& model)
 		{
 			Entity* entity = (Entity*)other->userData;
 
+			if (entity->tag == "Player")
+			{
+				Destroy();
+				OnBulletDestroy();
+
+				return;
+			}
 			std::cout << "Tag : " << entity->tag << std::endl;
 		});
 }
@@ -39,4 +46,6 @@ void Bullet::AddToRendererAndPhysics(Renderer* renderer, Shader* shader, Physics
 
 void Bullet::RemoveFromRendererAndPhysics(Renderer* renderer, PhysicsEngine* physicsEngine)
 {
+	renderer->RemoveModel(model);
+	physicsEngine->RemovePhysicsObject(phyObj);
 }
