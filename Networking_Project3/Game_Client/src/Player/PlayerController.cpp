@@ -18,13 +18,34 @@ GameObject* PlayerController::GetPlayer()
 	return player;
 }
 
+void PlayerController::PositionPredictor()
+{
+
+	glm::vec3 pos;
+	glm::vec3 targetPos;
+	glm::vec3 forward = player->GetTransform()->GetForward();
+	pos = player->GetTransform()->position;
+
+	if (wPressed)
+	{
+		targetPos = pos - forward * speed * Timer::GetInstance().deltaTime;
+		player->GetTransform()->SetPosition(targetPos);
+	}
+	else if(sPressed)
+	{
+		targetPos = pos + forward * speed * Timer::GetInstance().deltaTime;
+		player->GetTransform()->SetPosition(targetPos);
+	}
+}
+
 void PlayerController::Start()
 {
 }
 
 void PlayerController::Update(float deltaTime)
 {
-	
+	if (player == nullptr) return;
+	PositionPredictor();
 }
 
 void PlayerController::AddToRendererAndPhysics(Renderer* renderer, Shader* shader, PhysicsEngine* physicsEngine)
@@ -45,6 +66,7 @@ void PlayerController::OnKeyPressed(const int& key)
 		input.set_input((int)FORWARD);
 		client->SendCommand(USER_INPUT, input);
 
+		wPressed = true;
 	}
 	else if (key == GLFW_KEY_S)
 	{
@@ -52,6 +74,8 @@ void PlayerController::OnKeyPressed(const int& key)
 		input.set_action((int)PRESSED);
 		input.set_input((int)BACKWARD);
 		client->SendCommand(USER_INPUT, input);
+
+		sPressed = true;
 	}
 	else if (key == GLFW_KEY_A)
 	{
@@ -87,6 +111,8 @@ void PlayerController::OnKeyReleased(const int& key)
 		input.set_input((int)FORWARD);
 		client->SendCommand(USER_INPUT, input);
 
+		wPressed = false;
+
 	}
 	else if (key == GLFW_KEY_S)
 	{
@@ -94,6 +120,8 @@ void PlayerController::OnKeyReleased(const int& key)
 		input.set_action((int)RELEASED);
 		input.set_input((int)BACKWARD);
 		client->SendCommand(USER_INPUT, input);
+
+		sPressed = false;
 	}
 	else if (key == GLFW_KEY_A)
 	{
@@ -120,19 +148,5 @@ void PlayerController::OnKeyReleased(const int& key)
 
 void PlayerController::OnKeyHeld(const int& key)
 {
-	glm::vec3 pos;
-	glm::vec3 targetPos;
-	glm::vec3 forward = player->GetTransform()->GetForward();
-	pos = player->GetTransform()->position;
-
-	if (key == GLFW_KEY_W)
-	{
-		targetPos = pos - forward * speed * Timer::GetInstance().deltaTime;
-		player->GetTransform()->SetPosition(targetPos); 
-	}
-	else if (key == GLFW_KEY_S)
-	{
-		targetPos = pos + forward * speed * Timer::GetInstance().deltaTime;
-		player->GetTransform()->SetPosition(targetPos);
-	}
+	
 }

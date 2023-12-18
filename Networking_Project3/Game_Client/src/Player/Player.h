@@ -6,11 +6,16 @@
 class Player : public GameObject
 {
 public:
+	
+	int clientId = -1;
 	Bullet* bullet = nullptr;
+
 
 	Player();
 	void CreateInstance(Model& model);
 	Transform* GetTransform() override;
+
+	glm::vec3 moveDir = glm::vec3(0);
 
 private:
 

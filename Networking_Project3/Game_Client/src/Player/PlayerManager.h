@@ -26,9 +26,18 @@ public:
 
 	void Print();
 
+	void UpdatePlayerState(const int& id, const Multiplayer::Player& state);
+	void UpdateBulletState(const int& id, const Multiplayer::Bullet& state);
+
 private:
 
+	float predictSpeed = 0.7;
+
 	std::unordered_map<int, Player*> listOfPlayers;
+	std::unordered_map<int, Multiplayer::Player> listOfPlayerStates;
+	std::unordered_map<int, Multiplayer::Bullet> listOfBulletStates;
+
+	void PositionPredictor();
 
 	// Inherited via GameObject
 	Transform* GetTransform() override;

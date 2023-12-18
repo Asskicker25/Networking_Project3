@@ -18,9 +18,14 @@ public:
 
 private:
 
-	float speed = 6;
+	float speed = 0.8;
+
+	bool wPressed = false;
+	bool sPressed = false;
 
 	GameObject* player = nullptr;
+
+	void PositionPredictor();
 
 	// Inherited via Entity
 	void Start() override;

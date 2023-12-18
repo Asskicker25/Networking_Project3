@@ -75,6 +75,11 @@ void NetworkManager::BroadcastToClients()
 		player->set_allocated_color(GetVector3(it->second->model->meshes[0]->material->AsMaterial()->GetBaseColor()));
 		player->set_allocated_velocity((GetVector3(it->second->phyObj->velocity)));
 
+		/*glm::vec3 dir = it->second->phyObj->velocity;
+
+		std::cout << "Client : " << it->first << " Velocity : " <<
+			std::to_string(dir.x) + " , " + std::to_string(dir.y) + " , " + std::to_string(dir.z) << std::endl;*/
+
 		Player* playerObj = (Player*)it->second;
 
 		if (playerObj->bullet == nullptr)

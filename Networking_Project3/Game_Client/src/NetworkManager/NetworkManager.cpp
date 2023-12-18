@@ -59,6 +59,9 @@ void NetworkManager::OnCommandRecv(int id, Multiplayer::CommandAndData commandDa
 
 			PlayerManager::GetInstance().AddPlayer(player.clientid());
 
+			PlayerManager::GetInstance().UpdatePlayerState(player.clientid(), player);
+			PlayerManager::GetInstance().UpdateBulletState(player.clientid(), bullet);
+
 			UpdateGameObjectValue(
 				PlayerManager::GetInstance().GetPlayer(player.clientid()), player, bullet);
 		}
@@ -73,7 +76,7 @@ void NetworkManager::UpdateGameObjectValue(Player* gameObject, const  Multiplaye
 	gameObject->model->isActive = player.state() == 0 ? true : false;
 	gameObject->model->transform.SetPosition(GetGlmVector3(player.position()));
 	gameObject->model->transform.SetRotation(GetGlmVector3(player.rotation()));
-	gameObject->phyObj->velocity = GetGlmVector3(player.rotation());
+	gameObject->moveDir = GetGlmVector3(player.velocity());
 	gameObject->model->meshes[0]->material->AsMaterial()->SetBaseColor(
 		glm::vec4(GetGlmVector3(player.color()), 1.0f));
 
