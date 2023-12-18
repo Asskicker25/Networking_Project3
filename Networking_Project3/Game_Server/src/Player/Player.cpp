@@ -22,27 +22,30 @@ void Player::UpdateInput(const InputAction& action, const PlayerInput& input)
 
 #pragma region PRESSED
 
-	if (input == FORWARD)
+	if(action == PRESSED)
 	{
-		if (currentVelocity.z <= 0.0f)
+		if (input == BACKWARD)
 		{
-			currentVelocity.z = speed;
+			if (currentVelocity.z <= 0.0f)
+			{
+				currentVelocity.z = speed;
+			}
+			else
+			{
+				currentVelocity.z = speed;
+			}
 		}
-		else
-		{
-			currentVelocity.z = speed;
-		}
-	}
 
-	if (input == BACKWARD)
-	{
-		if (currentVelocity.z >= 0.0f)
+		if (input == FORWARD)
 		{
-			currentVelocity.z = -speed;
-		}
-		else
-		{
-			currentVelocity.z = -speed;
+			if (currentVelocity.z >= 0.0f)
+			{
+				currentVelocity.z = -speed;
+			}
+			else
+			{
+				currentVelocity.z = -speed;
+			}
 		}
 	}
 
@@ -50,19 +53,22 @@ void Player::UpdateInput(const InputAction& action, const PlayerInput& input)
 
 #pragma region RELEASED
 
-	if (input == FORWARD)
+	else if (action == RELEASED)
 	{
-		if (currentVelocity.z > 0.0f)
+		if (input == BACKWARD)
 		{
-			currentVelocity.z = 0.0f;
+			if (currentVelocity.z > 0.0f)
+			{
+				currentVelocity.z = 0.0f;
+			}
 		}
-	}
 
-	if (input == BACKWARD)
-	{
-		if (currentVelocity.z < 0.0f)
+		if (input == FORWARD)
 		{
-			currentVelocity.z = 0.0f;
+			if (currentVelocity.z < 0.0f)
+			{
+				currentVelocity.z = 0.0f;
+			}
 		}
 	}
 

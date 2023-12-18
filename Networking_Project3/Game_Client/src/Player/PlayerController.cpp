@@ -1,4 +1,5 @@
 #include "PlayerController.h"
+#include <Graphics/Timer.h>
 
 PlayerController::PlayerController()
 {
@@ -23,6 +24,7 @@ void PlayerController::Start()
 
 void PlayerController::Update(float deltaTime)
 {
+	
 }
 
 void PlayerController::AddToRendererAndPhysics(Renderer* renderer, Shader* shader, PhysicsEngine* physicsEngine)
@@ -119,4 +121,12 @@ void PlayerController::OnKeyReleased(const int& key)
 void PlayerController::OnKeyHeld(const int& key)
 {
 
+	if (key == GLFW_KEY_W)
+	{
+		player->GetTransform()->position.z -= speed * Timer::GetInstance().deltaTime;
+	}
+	else if (key == GLFW_KEY_S)
+	{
+		player->GetTransform()->position.z += speed * Timer::GetInstance().deltaTime;
+	}
 }

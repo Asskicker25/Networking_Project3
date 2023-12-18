@@ -18,6 +18,8 @@ public:
 
 private:
 
+	float speed = 6;
+
 	GameObject* player = nullptr;
 
 	// Inherited via Entity
