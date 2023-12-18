@@ -81,12 +81,14 @@ void NetworkManager::BroadcastToClients()
 		{
 			bullet->set_state((int)INACTIVE);
 			bullet->set_allocated_position((GetVector3(glm::vec3(0))));
+			bullet->set_allocated_rotation((GetVector3(glm::vec3(0))));
 			bullet->set_allocated_velocity((GetVector3(glm::vec3(0))));
 		}
 		else
 		{
 			bullet->set_state((int)ACTIVE);
 			bullet->set_allocated_position((GetVector3(playerObj->bullet->model->GetTransform()->position)));
+			bullet->set_allocated_rotation((GetVector3(playerObj->bullet->model->GetTransform()->rotation)));
 			bullet->set_allocated_velocity((GetVector3(playerObj->bullet->phyObj->velocity)));
 		}
 

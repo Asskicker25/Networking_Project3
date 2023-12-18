@@ -41,7 +41,8 @@ message Bullet
 {
     required int32 state = 1; 
     optional vector3 position = 2;
-    optional vector3 velocity = 3;
+    optional vector3 rotation = 3;
+    optional vector3 velocity = 4;
 }
 
 message GameScene 

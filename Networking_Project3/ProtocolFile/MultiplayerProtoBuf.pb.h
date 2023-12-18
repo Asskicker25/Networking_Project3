@@ -1178,7 +1178,8 @@ class Bullet final :
 
   enum : int {
     kPositionFieldNumber = 2,
-    kVelocityFieldNumber = 3,
+    kRotationFieldNumber = 3,
+    kVelocityFieldNumber = 4,
     kStateFieldNumber = 1,
   };
   // optional .Multiplayer.vector3 position = 2;
@@ -1199,7 +1200,25 @@ class Bullet final :
       ::Multiplayer::vector3* position);
   ::Multiplayer::vector3* unsafe_arena_release_position();
 
-  // optional .Multiplayer.vector3 velocity = 3;
+  // optional .Multiplayer.vector3 rotation = 3;
+  bool has_rotation() const;
+  private:
+  bool _internal_has_rotation() const;
+  public:
+  void clear_rotation();
+  const ::Multiplayer::vector3& rotation() const;
+  PROTOBUF_MUST_USE_RESULT ::Multiplayer::vector3* release_rotation();
+  ::Multiplayer::vector3* mutable_rotation();
+  void set_allocated_rotation(::Multiplayer::vector3* rotation);
+  private:
+  const ::Multiplayer::vector3& _internal_rotation() const;
+  ::Multiplayer::vector3* _internal_mutable_rotation();
+  public:
+  void unsafe_arena_set_allocated_rotation(
+      ::Multiplayer::vector3* rotation);
+  ::Multiplayer::vector3* unsafe_arena_release_rotation();
+
+  // optional .Multiplayer.vector3 velocity = 4;
   bool has_velocity() const;
   private:
   bool _internal_has_velocity() const;
@@ -1240,6 +1259,7 @@ class Bullet final :
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::Multiplayer::vector3* position_;
+  ::Multiplayer::vector3* rotation_;
   ::Multiplayer::vector3* velocity_;
   ::PROTOBUF_NAMESPACE_ID::int32 state_;
   friend struct ::TableStruct_MultiplayerProtoBuf_2eproto;
@@ -2154,7 +2174,7 @@ inline void Player::set_allocated_rotation(::Multiplayer::vector3* rotation) {
 
 // required int32 state = 1;
 inline bool Bullet::_internal_has_state() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
 inline bool Bullet::has_state() const {
@@ -2162,7 +2182,7 @@ inline bool Bullet::has_state() const {
 }
 inline void Bullet::clear_state() {
   state_ = 0;
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 Bullet::_internal_state() const {
   return state_;
@@ -2172,7 +2192,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 Bullet::state() const {
   return _internal_state();
 }
 inline void Bullet::_internal_set_state(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000008u;
   state_ = value;
 }
 inline void Bullet::set_state(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -2270,9 +2290,99 @@ inline void Bullet::set_allocated_position(::Multiplayer::vector3* position) {
   // @@protoc_insertion_point(field_set_allocated:Multiplayer.Bullet.position)
 }
 
-// optional .Multiplayer.vector3 velocity = 3;
-inline bool Bullet::_internal_has_velocity() const {
+// optional .Multiplayer.vector3 rotation = 3;
+inline bool Bullet::_internal_has_rotation() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  PROTOBUF_ASSUME(!value || rotation_ != nullptr);
+  return value;
+}
+inline bool Bullet::has_rotation() const {
+  return _internal_has_rotation();
+}
+inline void Bullet::clear_rotation() {
+  if (rotation_ != nullptr) rotation_->Clear();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const ::Multiplayer::vector3& Bullet::_internal_rotation() const {
+  const ::Multiplayer::vector3* p = rotation_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Multiplayer::vector3&>(
+      ::Multiplayer::_vector3_default_instance_);
+}
+inline const ::Multiplayer::vector3& Bullet::rotation() const {
+  // @@protoc_insertion_point(field_get:Multiplayer.Bullet.rotation)
+  return _internal_rotation();
+}
+inline void Bullet::unsafe_arena_set_allocated_rotation(
+    ::Multiplayer::vector3* rotation) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(rotation_);
+  }
+  rotation_ = rotation;
+  if (rotation) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Multiplayer.Bullet.rotation)
+}
+inline ::Multiplayer::vector3* Bullet::release_rotation() {
+  _has_bits_[0] &= ~0x00000002u;
+  ::Multiplayer::vector3* temp = rotation_;
+  rotation_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Multiplayer::vector3* Bullet::unsafe_arena_release_rotation() {
+  // @@protoc_insertion_point(field_release:Multiplayer.Bullet.rotation)
+  _has_bits_[0] &= ~0x00000002u;
+  ::Multiplayer::vector3* temp = rotation_;
+  rotation_ = nullptr;
+  return temp;
+}
+inline ::Multiplayer::vector3* Bullet::_internal_mutable_rotation() {
+  _has_bits_[0] |= 0x00000002u;
+  if (rotation_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Multiplayer::vector3>(GetArenaForAllocation());
+    rotation_ = p;
+  }
+  return rotation_;
+}
+inline ::Multiplayer::vector3* Bullet::mutable_rotation() {
+  ::Multiplayer::vector3* _msg = _internal_mutable_rotation();
+  // @@protoc_insertion_point(field_mutable:Multiplayer.Bullet.rotation)
+  return _msg;
+}
+inline void Bullet::set_allocated_rotation(::Multiplayer::vector3* rotation) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete rotation_;
+  }
+  if (rotation) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::Multiplayer::vector3>::GetOwningArena(rotation);
+    if (message_arena != submessage_arena) {
+      rotation = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, rotation, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  rotation_ = rotation;
+  // @@protoc_insertion_point(field_set_allocated:Multiplayer.Bullet.rotation)
+}
+
+// optional .Multiplayer.vector3 velocity = 4;
+inline bool Bullet::_internal_has_velocity() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
   PROTOBUF_ASSUME(!value || velocity_ != nullptr);
   return value;
 }
@@ -2281,7 +2391,7 @@ inline bool Bullet::has_velocity() const {
 }
 inline void Bullet::clear_velocity() {
   if (velocity_ != nullptr) velocity_->Clear();
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline const ::Multiplayer::vector3& Bullet::_internal_velocity() const {
   const ::Multiplayer::vector3* p = velocity_;
@@ -2299,14 +2409,14 @@ inline void Bullet::unsafe_arena_set_allocated_velocity(
   }
   velocity_ = velocity;
   if (velocity) {
-    _has_bits_[0] |= 0x00000002u;
+    _has_bits_[0] |= 0x00000004u;
   } else {
-    _has_bits_[0] &= ~0x00000002u;
+    _has_bits_[0] &= ~0x00000004u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Multiplayer.Bullet.velocity)
 }
 inline ::Multiplayer::vector3* Bullet::release_velocity() {
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
   ::Multiplayer::vector3* temp = velocity_;
   velocity_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -2322,13 +2432,13 @@ inline ::Multiplayer::vector3* Bullet::release_velocity() {
 }
 inline ::Multiplayer::vector3* Bullet::unsafe_arena_release_velocity() {
   // @@protoc_insertion_point(field_release:Multiplayer.Bullet.velocity)
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
   ::Multiplayer::vector3* temp = velocity_;
   velocity_ = nullptr;
   return temp;
 }
 inline ::Multiplayer::vector3* Bullet::_internal_mutable_velocity() {
-  _has_bits_[0] |= 0x00000002u;
+  _has_bits_[0] |= 0x00000004u;
   if (velocity_ == nullptr) {
     auto* p = CreateMaybeMessage<::Multiplayer::vector3>(GetArenaForAllocation());
     velocity_ = p;
@@ -2352,9 +2462,9 @@ inline void Bullet::set_allocated_velocity(::Multiplayer::vector3* velocity) {
       velocity = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, velocity, submessage_arena);
     }
-    _has_bits_[0] |= 0x00000002u;
+    _has_bits_[0] |= 0x00000004u;
   } else {
-    _has_bits_[0] &= ~0x00000002u;
+    _has_bits_[0] &= ~0x00000004u;
   }
   velocity_ = velocity;
   // @@protoc_insertion_point(field_set_allocated:Multiplayer.Bullet.velocity)

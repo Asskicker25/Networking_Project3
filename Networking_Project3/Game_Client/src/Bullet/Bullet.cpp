@@ -10,6 +10,8 @@ void Bullet::CreateInstance(Model& model)
 {
 
 	this->model->CopyFromModel(model);
+
+	phyObj->isEnabled = false;
 	phyObj->Initialize(this->model, SPHERE, DYNAMIC,TRIGGER);
 }
 

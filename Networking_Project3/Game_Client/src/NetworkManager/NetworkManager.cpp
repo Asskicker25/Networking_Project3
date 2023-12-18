@@ -84,6 +84,8 @@ void NetworkManager::UpdateGameObjectValue(Player* gameObject, const  Multiplaye
 	{
 		gameObject->bullet->model->isActive = true;
 		gameObject->bullet->model->transform.SetPosition(GetGlmVector3(bullet.position()));
+		gameObject->bullet->model->transform.SetRotation(GetGlmVector3(bullet.rotation()));
+		gameObject->bullet->model->meshes[0]->material->AsMaterial()->SetBaseColor(glm::vec4(GetGlmVector3(player.color()), 1.0f));
 	}
 }
 

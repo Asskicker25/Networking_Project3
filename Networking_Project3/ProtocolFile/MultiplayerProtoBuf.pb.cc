@@ -90,6 +90,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PlayerDefaultTypeInternal _Play
 constexpr Bullet::Bullet(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : position_(nullptr)
+  , rotation_(nullptr)
   , velocity_(nullptr)
   , state_(0){}
 struct BulletDefaultTypeInternal {
@@ -188,10 +189,12 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_MultiplayerProtoBuf_2eproto::o
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Multiplayer::Bullet, state_),
   PROTOBUF_FIELD_OFFSET(::Multiplayer::Bullet, position_),
+  PROTOBUF_FIELD_OFFSET(::Multiplayer::Bullet, rotation_),
   PROTOBUF_FIELD_OFFSET(::Multiplayer::Bullet, velocity_),
-  2,
+  3,
   0,
   1,
+  2,
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Multiplayer::GameScene, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -207,8 +210,8 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 20, 29, -1, sizeof(::Multiplayer::CommandAndData)},
   { 32, 40, -1, sizeof(::Multiplayer::UserInput)},
   { 42, 54, -1, sizeof(::Multiplayer::Player)},
-  { 60, 69, -1, sizeof(::Multiplayer::Bullet)},
-  { 72, -1, -1, sizeof(::Multiplayer::GameScene)},
+  { 60, 70, -1, sizeof(::Multiplayer::Bullet)},
+  { 74, -1, -1, sizeof(::Multiplayer::GameScene)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -232,16 +235,17 @@ const char descriptor_table_protodef_MultiplayerProtoBuf_2eproto[] PROTOBUF_SECT
   "\n\010position\030\003 \001(\0132\024.Multiplayer.vector3\022#"
   "\n\005color\030\004 \001(\0132\024.Multiplayer.vector3\022&\n\010v"
   "elocity\030\005 \001(\0132\024.Multiplayer.vector3\022&\n\010r"
-  "otation\030\006 \001(\0132\024.Multiplayer.vector3\"g\n\006B"
-  "ullet\022\r\n\005state\030\001 \002(\005\022&\n\010position\030\002 \001(\0132\024"
-  ".Multiplayer.vector3\022&\n\010velocity\030\003 \001(\0132\024"
-  ".Multiplayer.vector3\"W\n\tGameScene\022$\n\007pla"
-  "yers\030\002 \003(\0132\023.Multiplayer.Player\022$\n\007bulle"
-  "ts\030\003 \003(\0132\023.Multiplayer.Bullet"
+  "otation\030\006 \001(\0132\024.Multiplayer.vector3\"\217\001\n\006"
+  "Bullet\022\r\n\005state\030\001 \002(\005\022&\n\010position\030\002 \001(\0132"
+  "\024.Multiplayer.vector3\022&\n\010rotation\030\003 \001(\0132"
+  "\024.Multiplayer.vector3\022&\n\010velocity\030\004 \001(\0132"
+  "\024.Multiplayer.vector3\"W\n\tGameScene\022$\n\007pl"
+  "ayers\030\002 \003(\0132\023.Multiplayer.Player\022$\n\007bull"
+  "ets\030\003 \003(\0132\023.Multiplayer.Bullet"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_MultiplayerProtoBuf_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_MultiplayerProtoBuf_2eproto = {
-  false, false, 629, descriptor_table_protodef_MultiplayerProtoBuf_2eproto, "MultiplayerProtoBuf.proto", 
+  false, false, 670, descriptor_table_protodef_MultiplayerProtoBuf_2eproto, "MultiplayerProtoBuf.proto", 
   &descriptor_table_MultiplayerProtoBuf_2eproto_once, nullptr, 0, 7,
   schemas, file_default_instances, TableStruct_MultiplayerProtoBuf_2eproto::offsets,
   file_level_metadata_MultiplayerProtoBuf_2eproto, file_level_enum_descriptors_MultiplayerProtoBuf_2eproto, file_level_service_descriptors_MultiplayerProtoBuf_2eproto,
@@ -1740,24 +1744,32 @@ class Bullet::_Internal {
  public:
   using HasBits = decltype(std::declval<Bullet>()._has_bits_);
   static void set_has_state(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
+    (*has_bits)[0] |= 8u;
   }
   static const ::Multiplayer::vector3& position(const Bullet* msg);
   static void set_has_position(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static const ::Multiplayer::vector3& velocity(const Bullet* msg);
-  static void set_has_velocity(HasBits* has_bits) {
+  static const ::Multiplayer::vector3& rotation(const Bullet* msg);
+  static void set_has_rotation(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
+  static const ::Multiplayer::vector3& velocity(const Bullet* msg);
+  static void set_has_velocity(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
   static bool MissingRequiredFields(const HasBits& has_bits) {
-    return ((has_bits[0] & 0x00000004) ^ 0x00000004) != 0;
+    return ((has_bits[0] & 0x00000008) ^ 0x00000008) != 0;
   }
 };
 
 const ::Multiplayer::vector3&
 Bullet::_Internal::position(const Bullet* msg) {
   return *msg->position_;
+}
+const ::Multiplayer::vector3&
+Bullet::_Internal::rotation(const Bullet* msg) {
+  return *msg->rotation_;
 }
 const ::Multiplayer::vector3&
 Bullet::_Internal::velocity(const Bullet* msg) {
@@ -1780,6 +1792,11 @@ Bullet::Bullet(const Bullet& from)
     position_ = new ::Multiplayer::vector3(*from.position_);
   } else {
     position_ = nullptr;
+  }
+  if (from._internal_has_rotation()) {
+    rotation_ = new ::Multiplayer::vector3(*from.rotation_);
+  } else {
+    rotation_ = nullptr;
   }
   if (from._internal_has_velocity()) {
     velocity_ = new ::Multiplayer::vector3(*from.velocity_);
@@ -1807,6 +1824,7 @@ Bullet::~Bullet() {
 inline void Bullet::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete position_;
+  if (this != internal_default_instance()) delete rotation_;
   if (this != internal_default_instance()) delete velocity_;
 }
 
@@ -1827,12 +1845,16 @@ void Bullet::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       GOOGLE_DCHECK(position_ != nullptr);
       position_->Clear();
     }
     if (cached_has_bits & 0x00000002u) {
+      GOOGLE_DCHECK(rotation_ != nullptr);
+      rotation_->Clear();
+    }
+    if (cached_has_bits & 0x00000004u) {
       GOOGLE_DCHECK(velocity_ != nullptr);
       velocity_->Clear();
     }
@@ -1866,9 +1888,17 @@ const char* Bullet::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::int
         } else
           goto handle_unusual;
         continue;
-      // optional .Multiplayer.vector3 velocity = 3;
+      // optional .Multiplayer.vector3 rotation = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_rotation(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .Multiplayer.vector3 velocity = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_velocity(), ptr);
           CHK_(ptr);
         } else
@@ -1906,7 +1936,7 @@ failure:
 
   cached_has_bits = _has_bits_[0];
   // required int32 state = 1;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_state(), target);
   }
@@ -1919,12 +1949,20 @@ failure:
         2, _Internal::position(this), target, stream);
   }
 
-  // optional .Multiplayer.vector3 velocity = 3;
+  // optional .Multiplayer.vector3 rotation = 3;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        3, _Internal::velocity(this), target, stream);
+        3, _Internal::rotation(this), target, stream);
+  }
+
+  // optional .Multiplayer.vector3 velocity = 4;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        4, _Internal::velocity(this), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1948,7 +1986,7 @@ size_t Bullet::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     // optional .Multiplayer.vector3 position = 2;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -1956,8 +1994,15 @@ size_t Bullet::ByteSizeLong() const {
           *position_);
     }
 
-    // optional .Multiplayer.vector3 velocity = 3;
+    // optional .Multiplayer.vector3 rotation = 3;
     if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *rotation_);
+    }
+
+    // optional .Multiplayer.vector3 velocity = 4;
+    if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *velocity_);
@@ -1987,14 +2032,17 @@ void Bullet::MergeFrom(const Bullet& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_mutable_position()->::Multiplayer::vector3::MergeFrom(from._internal_position());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_mutable_velocity()->::Multiplayer::vector3::MergeFrom(from._internal_velocity());
+      _internal_mutable_rotation()->::Multiplayer::vector3::MergeFrom(from._internal_rotation());
     }
     if (cached_has_bits & 0x00000004u) {
+      _internal_mutable_velocity()->::Multiplayer::vector3::MergeFrom(from._internal_velocity());
+    }
+    if (cached_has_bits & 0x00000008u) {
       state_ = from.state_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -2013,6 +2061,9 @@ bool Bullet::IsInitialized() const {
   if (_Internal::MissingRequiredFields(_has_bits_)) return false;
   if (_internal_has_position()) {
     if (!position_->IsInitialized()) return false;
+  }
+  if (_internal_has_rotation()) {
+    if (!rotation_->IsInitialized()) return false;
   }
   if (_internal_has_velocity()) {
     if (!velocity_->IsInitialized()) return false;

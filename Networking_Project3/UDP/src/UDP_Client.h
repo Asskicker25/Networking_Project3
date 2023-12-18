@@ -37,8 +37,8 @@ private:
 	int port;
 
 	static const int NUM_OF_PLAYER = 4;
-	static const int PLAYER_SIZE = 112;
-	static const int COMMAND_SIZE = 6;
+	static const int PLAYER_SIZE = 129;
+	static const int COMMAND_SIZE = 7;
 
 	std::string ipAddress;
 	sockaddr_in addr;
