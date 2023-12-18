@@ -67,7 +67,7 @@ void PlayerController::OnKeyPressed(const int& key)
 		input.set_input((int)TURN_RIGHT);
 		client->SendCommand(USER_INPUT, input);
 	}
-	else if (key == GLFW_KEY_J)
+	else if (key == GLFW_KEY_SPACE)
 	{
 		Multiplayer::UserInput input;
 		input.set_action((int)PRESSED);
@@ -109,7 +109,7 @@ void PlayerController::OnKeyReleased(const int& key)
 		input.set_input((int)TURN_RIGHT);
 		client->SendCommand(USER_INPUT, input);
 	}
-	else if (key == GLFW_KEY_J)
+	else if (key == GLFW_KEY_SPACE)
 	{
 		Multiplayer::UserInput input;
 		input.set_action((int)RELEASED);

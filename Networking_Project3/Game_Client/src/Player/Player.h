@@ -14,7 +14,6 @@ public:
 
 private:
 
-
 	// Inherited via GameObject
 	void Start() override;
 	void Update(float deltaTime) override;

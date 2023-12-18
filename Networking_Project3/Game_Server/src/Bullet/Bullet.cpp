@@ -10,7 +10,14 @@ void Bullet::CreateInstance(Model& model)
 {
 
 	this->model->CopyFromModel(model);
-	phyObj->Initialize(this->model, SPHERE, DYNAMIC,TRIGGER);
+	phyObj->userData = this;
+	phyObj->Initialize(this->model, SPHERE, DYNAMIC, TRIGGER, true);
+	phyObj->AssignCollisionCallback([this](PhysicsObject* other)
+		{
+			Entity* entity = (Entity*)other->userData;
+
+			std::cout << "Tag : " << entity->tag << std::endl;
+		});
 }
 
 Transform* Bullet::GetTransform()

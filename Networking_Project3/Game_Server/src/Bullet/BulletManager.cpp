@@ -16,7 +16,7 @@ Bullet* BulletManager::CreateBullet(const glm::vec3 pos, const glm::vec3& dir, c
 {
 	Bullet* bullet = factory->CreateBullet();
 
-	bullet->GetTransform()->SetPosition(pos - dir * offset);
+	bullet->GetTransform()->SetPosition(pos - dir * offset + glm::vec3(0 ,0.1,0));
 
 	glm::vec3 right = glm::cross(glm::vec3(0, 1, 0), dir);
 	glm::vec3 up = glm::cross(dir, right);

@@ -21,8 +21,15 @@ public:
 private:
 
 	float speed = 1;
+	float spawnInterval = 2;
 	float bulletSpawnOffset = 0.1f;
+
+	float timeStep = 0;
+
+	bool bulletSpawned = false;
+
 	glm::vec3 currentVelocity;
+
 
 	// Inherited via GameObject
 	void Start() override;

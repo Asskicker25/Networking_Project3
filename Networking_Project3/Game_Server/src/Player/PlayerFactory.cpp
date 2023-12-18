@@ -10,14 +10,18 @@ PlayerFactory::PlayerFactory()
 
 Player* PlayerFactory::CreatePlayer()
 {
+    std::string entityId = "Player" + std::to_string(playerCount);
+
     Player* newPlayer = new Player();
     newPlayer->CreateInstance(*player);
+
+    newPlayer->tag = "Player";
 
     newPlayer->model->modelId = "Player" + std::to_string(playerCount);
     renderer->AddModel(newPlayer->model, shader);
     physicsEngine->AddPhysicsObject(newPlayer->phyObj);
 
-    EntityManager::GetInstance().AddEntity("Player" + std::to_string(playerCount), newPlayer);
+    EntityManager::GetInstance().AddEntity(entityId, newPlayer);
 
     playerCount++;
 

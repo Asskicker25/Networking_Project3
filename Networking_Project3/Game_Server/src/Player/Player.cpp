@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "../Bullet/BulletManager.h"
+#include <Graphics/Timer.h>
 
 Player::Player()
 {
@@ -10,7 +11,8 @@ Player::Player()
 void Player::CreateInstance(Model& model)
 {
 	this->model->CopyFromModel(model);
-	this->phyObj->Initialize(this->model, SPHERE, DYNAMIC);
+	this->phyObj->Initialize(this->model, AABB, DYNAMIC);
+	phyObj->userData = this;
 }
 
 Transform* Player::GetTransform()
@@ -72,7 +74,12 @@ void Player::UpdateInput(const InputAction& action, const PlayerInput& input)
 
 		if (input == FIRE)
 		{
+			if (bulletSpawned) return;
+
 			bullet = BulletManager::GetInstance().CreateBullet(pos, forward, bulletSpawnOffset);
+
+			bulletSpawned = true;
+			
 		}
 	}
 
@@ -111,6 +118,16 @@ void Player::Start()
 void Player::Update(float deltaTime)
 {
 	phyObj->velocity = currentVelocity;
+
+	if (!bulletSpawned) return;
+
+	timeStep += Timer::GetInstance().deltaTime;
+
+	if (timeStep >= spawnInterval)
+	{
+		timeStep = 0;
+		bulletSpawned = false;
+	}
 }
 
 void Player::AddToRendererAndPhysics(Renderer* renderer, Shader* shader, PhysicsEngine* physicsEngine)
