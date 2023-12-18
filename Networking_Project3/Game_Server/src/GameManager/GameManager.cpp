@@ -9,9 +9,9 @@ glm::vec3 GameManager::position[4] = {
 };
 
 glm::vec4 GameManager::colors[4] = {
-	glm::vec4(1,0,0,1),
-	glm::vec4(0,1,0,1),
-	glm::vec4(0,0,1,1),
+	glm::vec4(0.8,0,0,1),
+	glm::vec4(0,0.8,0,1),
+	glm::vec4(0,0,0.8,1),
 	glm::vec4(0.5,0.5,0.5,1),
 };
 

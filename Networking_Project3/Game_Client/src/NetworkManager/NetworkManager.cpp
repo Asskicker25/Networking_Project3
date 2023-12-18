@@ -55,23 +55,36 @@ void NetworkManager::OnCommandRecv(int id, Multiplayer::CommandAndData commandDa
 		for (int i = 0; i < gameScene.players_size(); i++)
 		{
 			const Multiplayer::Player& player = gameScene.players(i);
+			const Multiplayer::Bullet& bullet = gameScene.bullets(i);
 
 			PlayerManager::GetInstance().AddPlayer(player.clientid());
 
 			UpdateGameObjectValue(
-				PlayerManager::GetInstance().GetPlayer(player.clientid()), player);
+				PlayerManager::GetInstance().GetPlayer(player.clientid()), player, bullet);
 		}
 	}
 
 }
 
-void NetworkManager::UpdateGameObjectValue(GameObject* gameObject, const Multiplayer::Player& player)
+
+void NetworkManager::UpdateGameObjectValue(Player* gameObject, const  Multiplayer::Player& player,
+	const Multiplayer::Bullet& bullet)
 {
 	gameObject->model->transform.SetPosition(GetGlmVector3(player.position()));
 	gameObject->model->transform.SetRotation(GetGlmVector3(player.rotation()));
 	gameObject->phyObj->velocity = GetGlmVector3(player.rotation());
 	gameObject->model->meshes[0]->material->AsMaterial()->SetBaseColor(
 		glm::vec4(GetGlmVector3(player.color()), 1.0f));
+
+	if (bullet.state() == INACTIVE)
+	{
+		gameObject->bullet->model->isActive = false;
+	}
+	else
+	{
+		gameObject->bullet->model->isActive = true;
+		gameObject->bullet->model->transform.SetPosition(GetGlmVector3(bullet.position()));
+	}
 }
 
 

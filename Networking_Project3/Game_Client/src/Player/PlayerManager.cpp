@@ -1,4 +1,5 @@
 #include "PlayerManager.h"
+#include "../Bullet/BulletManager.h"
 
 PlayerManager::PlayerManager()
 {
@@ -23,7 +24,10 @@ void PlayerManager::AddPlayer(int id)
 {
 	if (CheckIfPlayerExists(id)) return;
 
-	GameObject* player = CreatePlayer();
+	Player* player = CreatePlayer();
+	Bullet* bullet = BulletManager::GetInstance().CreateBullet();
+
+	player->bullet = bullet;
 
 	listOfPlayers[id] = player;
 
@@ -35,7 +39,7 @@ void PlayerManager::AddPlayer(int id)
 
 bool PlayerManager::CheckIfPlayerExists(int id)
 {
-	std::unordered_map<int, GameObject*>::iterator it = listOfPlayers.find(id);
+	std::unordered_map<int, Player*>::iterator it = listOfPlayers.find(id);
 
 	if (it == listOfPlayers.end())
 	{
@@ -45,7 +49,7 @@ bool PlayerManager::CheckIfPlayerExists(int id)
 	return true;
 }
 
-GameObject* PlayerManager::GetPlayer(int id)
+Player* PlayerManager::GetPlayer(int id)
 {
 	return listOfPlayers[id];
 }

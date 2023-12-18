@@ -137,6 +137,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Bullet\BulletManager.cpp" />
+    <ClCompile Include="src\Bullet\BulletFactory.cpp" />
+    <ClCompile Include="src\Bullet\Bullet.cpp" />
     <ClCompile Include="src\Player\PlayerController.cpp" />
     <ClCompile Include="src\GameManager\GameManager.cpp" />
     <ClCompile Include="src\NetworkManager\NetworkManager.cpp" />
@@ -152,6 +155,9 @@
     <ClCompile Include="src\Utilities\RendererInstance.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Bullet\BulletManager.h" />
+    <ClInclude Include="src\Bullet\BulletFactory.h" />
+    <ClInclude Include="src\Bullet\Bullet.h" />
     <ClInclude Include="src\Player\PlayerController.h" />
     <ClInclude Include="src\GameManager\GameManager.h" />
     <ClInclude Include="src\GameObject\GameObject.h" />

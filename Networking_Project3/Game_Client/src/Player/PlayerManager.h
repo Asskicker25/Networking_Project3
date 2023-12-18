@@ -22,13 +22,13 @@ public:
 	void AddPlayer(int id);
 	bool CheckIfPlayerExists(int id);
 
-	GameObject* GetPlayer(int id);
+	Player* GetPlayer(int id);
 
 	void Print();
 
 private:
 
-	std::unordered_map<int, GameObject*> listOfPlayers;
+	std::unordered_map<int, Player*> listOfPlayers;
 
 	// Inherited via GameObject
 	Transform* GetTransform() override;

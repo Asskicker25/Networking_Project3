@@ -60,10 +60,13 @@ void NetworkManager::BroadcastToClients()
 
 	std::unordered_map<int, GameObject*>::iterator it;
 
+	gameScene.clear_bullets();
+
 	for (it = gameManager->listOfPlayers.begin(); it != gameManager->listOfPlayers.end(); ++it)
 	{
 
 		Multiplayer::Player* player = listOfPlayers[it->first];
+		Multiplayer::Bullet* bullet = gameScene.add_bullets();
 
 		player->set_state(0);
 		player->set_clientid(it->first);
@@ -71,6 +74,21 @@ void NetworkManager::BroadcastToClients()
 		player->set_allocated_rotation((GetVector3(it->second->model->transform.rotation)));
 		player->set_allocated_color(GetVector3(it->second->model->meshes[0]->material->AsMaterial()->GetBaseColor()));
 		player->set_allocated_velocity((GetVector3(it->second->phyObj->velocity)));
+
+		Player* playerObj = (Player*)it->second;
+
+		if (playerObj->bullet == nullptr)
+		{
+			bullet->set_state((int)INACTIVE);
+			bullet->set_allocated_position((GetVector3(glm::vec3(0))));
+			bullet->set_allocated_velocity((GetVector3(glm::vec3(0))));
+		}
+		else
+		{
+			bullet->set_state((int)ACTIVE);
+			bullet->set_allocated_position((GetVector3(playerObj->bullet->model->GetTransform()->position)));
+			bullet->set_allocated_velocity((GetVector3(playerObj->bullet->phyObj->velocity)));
+		}
 
 	}
 

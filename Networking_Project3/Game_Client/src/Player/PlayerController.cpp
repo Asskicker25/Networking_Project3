@@ -120,13 +120,19 @@ void PlayerController::OnKeyReleased(const int& key)
 
 void PlayerController::OnKeyHeld(const int& key)
 {
+	glm::vec3 pos;
+	glm::vec3 targetPos;
+	glm::vec3 forward = player->GetTransform()->GetForward();
+	pos = player->GetTransform()->position;
 
 	if (key == GLFW_KEY_W)
 	{
-		player->GetTransform()->position.z -= speed * Timer::GetInstance().deltaTime;
+		targetPos = pos - forward * speed * Timer::GetInstance().deltaTime;
+		player->GetTransform()->SetPosition(targetPos); 
 	}
 	else if (key == GLFW_KEY_S)
 	{
-		player->GetTransform()->position.z += speed * Timer::GetInstance().deltaTime;
+		targetPos = pos + forward * speed * Timer::GetInstance().deltaTime;
+		player->GetTransform()->SetPosition(targetPos);
 	}
 }

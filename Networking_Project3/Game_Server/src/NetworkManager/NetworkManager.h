@@ -4,12 +4,6 @@
 #include <UDP_Server.h>
 #include "../GameManager/GameManager.h"
 
-enum PlayerState
-{
-	ACTIVE = 0,
-	NOT_ACTIVE = 1
-};
-
 
 class NetworkManager : public GameObject
 {

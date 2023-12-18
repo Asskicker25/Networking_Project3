@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "../Bullet/BulletManager.h"
 
 Player::Player()
 {
@@ -22,6 +23,8 @@ void Player::UpdateInput(const InputAction& action, const PlayerInput& input)
 
 #pragma region PRESSED
 
+	glm::vec3 forward = model->transform.GetForward();
+	glm::vec3 pos = model->transform.position;
 	glm::vec3 moveDir = glm::normalize(currentVelocity);
 	float length = glm::length(moveDir);
 
@@ -65,6 +68,11 @@ void Player::UpdateInput(const InputAction& action, const PlayerInput& input)
 		{
 			model->transform.SetRotation(glm::vec3(model->transform.rotation.x,
 				model->transform.rotation.y + 90, model->transform.rotation.z));
+		}
+
+		if (input == FIRE)
+		{
+			bullet = BulletManager::GetInstance().CreateBullet(pos, forward, bulletSpawnOffset);
 		}
 	}
 

@@ -2,6 +2,7 @@
 
 #include "../GameObject/GameObject.h"
 #include <UDP_Client.h>
+#include "../Player/Player.h"
 
 class NetworkManager : public GameObject
 {
@@ -19,7 +20,7 @@ private:
 	int clientId;
 
 	void OnCommandRecv(int id, Multiplayer::CommandAndData commandData);
-	void UpdateGameObjectValue(GameObject* gameObject, const  Multiplayer::Player& player);
+	void UpdateGameObjectValue(Player* gameObject, const  Multiplayer::Player& player, const Multiplayer::Bullet& bullet);
 
 	// Inherited via GameObject
 	Transform* GetTransform() override;

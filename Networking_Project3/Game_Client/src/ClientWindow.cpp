@@ -5,6 +5,7 @@
 #include "NetworkManager/NetworkManager.h"
 #include "Player/PlayerManager.h"
 #include "Player/PlayerController.h"
+#include "Bullet/BulletManager.h"
 
 void ClientWindow::SetClientId(const int& id)
 {
@@ -48,6 +49,7 @@ void ClientWindow::SetUp()
 
 	renderer.AddModel(world, &defShader);
 
+	BulletManager::GetInstance().Print();
 	PlayerController* playerController = new PlayerController();
 	PlayerManager::GetInstance().playerController = playerController;
 	PlayerManager::GetInstance().clientId = clientId;

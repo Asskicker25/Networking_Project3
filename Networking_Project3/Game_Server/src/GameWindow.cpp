@@ -5,6 +5,7 @@
 #include "GameManager/GameManager.h"
 #include "Player/PlayerManager.h"
 #include <thread>
+#include "Bullet/BulletManager.h"
 
 void GameWindow::SetUp()
 {
@@ -40,6 +41,8 @@ void GameWindow::SetUp()
 	world->transform.SetRotation(glm::vec3(-90.0f, 0.0, 0.0));
 	world->transform.SetScale(glm::vec3(10));
 	renderer.AddModel(world, &defShader);
+
+	BulletManager::GetInstance().Print();
 
 	GameManager* gameManager = new GameManager();
 	NetworkManager* networkManager = new NetworkManager();

@@ -25,6 +25,13 @@ static enum InputAction
 	RELEASED = 1
 };
 
+
+static enum ActiveState
+{
+	ACTIVE = 0,
+	INACTIVE = 1
+};
+
 struct LengthPrefixedMessage
 {
 	std::string message;
