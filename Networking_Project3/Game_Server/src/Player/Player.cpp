@@ -30,6 +30,7 @@ void Player::UpdateInput(const InputAction& action, const PlayerInput& input)
 			model->transform.SetPosition(spawnPos);
 			isActive = true;
 			model->isActive = true;
+			phyObj->isEnabled = true;
 		}
 
 		return;

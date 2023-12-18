@@ -32,6 +32,7 @@ public:
 private:
 
 	float predictSpeed = 0.7;
+	float bulletPredictSpeed = 0.8;
 
 	std::unordered_map<int, Player*> listOfPlayers;
 	std::unordered_map<int, Multiplayer::Player> listOfPlayerStates;

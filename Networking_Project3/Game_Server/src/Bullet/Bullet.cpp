@@ -20,6 +20,7 @@ void Bullet::CreateInstance(Model& model)
 			if (entity->tag == "Player")
 			{
 				Player* player = (Player*)entity;
+				player->phyObj->isEnabled = false;
 
 				Destroy();
 

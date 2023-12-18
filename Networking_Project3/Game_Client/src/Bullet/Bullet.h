@@ -12,6 +12,9 @@ public:
 	Transform* GetTransform() override;
 
 	float speed = 0.5;
+
+	glm::vec3 moveDir = glm::vec3(0);
+
 private:
 
 

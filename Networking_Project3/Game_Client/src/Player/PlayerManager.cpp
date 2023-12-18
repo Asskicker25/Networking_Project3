@@ -62,18 +62,28 @@ void PlayerManager::PositionPredictor()
 
 	for (it = listOfPlayers.begin(); it != listOfPlayers.end(); ++it)
 	{
-		if (it->first == clientId) continue;
-
 		Player* player = it->second;
+		Bullet* bullet = player->bullet;
+
+		Multiplayer::Bullet bulletState = listOfBulletStates[it->first];
+		if (bulletState.state() == ACTIVE)
+		{
+			glm::vec3 bulletTargetPos = bullet->model->transform.position +
+				bullet->moveDir * bulletPredictSpeed * Timer::GetInstance().deltaTime;
+
+			bullet->GetTransform()->SetPosition(bulletTargetPos);
+		}
+
+		if (it->first == clientId)
+		{
+			continue;
+		}
 
 		Multiplayer::Player playerState = listOfPlayerStates[it->first];
 
-		/*std::cout << "Client : " << clientId << " Velocity : " <<
-			std::to_string( player->moveDir.x) + " , " + std::to_string(player->moveDir.y) + " , " + std::to_string(player->moveDir.z) << std::endl;*/
-
 		glm::vec3 targetPos = player->model->transform.position + player->moveDir * predictSpeed * Timer::GetInstance().deltaTime;
 		player->GetTransform()->SetPosition(targetPos);
-		
+
 	}
 }
 
