@@ -18,8 +18,8 @@ void GameWindow::SetUp()
 
 	camera->InitializeCamera(PERSPECTIVE, windowWidth, windowHeight, 0.1f, 1000.0f, 65.0f);
 
-	camera->transform.SetPosition(glm::vec3(0, 0, 3));
-	camera->transform.SetRotation(glm::vec3(0, 0, 0));
+	camera->transform.SetPosition(glm::vec3(0.18, 2.1, 3));
+	camera->transform.SetRotation(glm::vec3(-51, 0, 0));
 
 	EntityManager::GetInstance().AddToRendererAndPhysics(&renderer, &defShader, &physicsEngine);
 
@@ -31,10 +31,15 @@ void GameWindow::SetUp()
 
 	Light* dirLight = new Light();
 	dirLight->InitializeLight(lightModel, Directional);
-	dirLight->intensity = 1.5f;
+	dirLight->intensity = 0.65f;
 	lightManager.AddLight(dirLight);
 
 #pragma endregion
+
+	Model* world = new Model("Assets/Models/Arena.fbx");
+	world->transform.SetRotation(glm::vec3(-90.0f, 0.0, 0.0));
+	world->transform.SetScale(glm::vec3(10));
+	renderer.AddModel(world, &defShader);
 
 	GameManager* gameManager = new GameManager();
 	NetworkManager* networkManager = new NetworkManager();

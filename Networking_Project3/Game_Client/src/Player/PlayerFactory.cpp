@@ -3,8 +3,9 @@
 
 PlayerFactory::PlayerFactory()
 {
-    player = new Model("res/Models/DefaultSphere.fbx");
-    player->transform.SetScale(glm::vec3(0.1f));
+    player = new Model("Assets/Models/tank.obj");
+    player->transform.SetRotation(glm::vec3(0.0, 180, 0));
+    player->transform.SetScale(glm::vec3(0.05f));
 }
 
 Player* PlayerFactory::CreatePlayer()
