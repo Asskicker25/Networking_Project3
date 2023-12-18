@@ -1,3 +1,10 @@
+
+Group Members:
+
+1. Surya Prakash Ramu (ID : 1196819) (Mail : s_ramu@fanshaweonline.ca)
+2. Mohamed Ibrahim Sheik Dawood Salahudeen (ID:  1219082) (Mail : m_sheikdawoodsalahud@fanshaweonline.ca)
+3. Uphendhra Nagarajan  (ID : 1211808)  (Mail : u_nagarajan@fanshaweonline.ca)
+
 BUILD AND RUN INSTRUCTIONS
 
 1. Open the Networking_Project3.sln under the Networking_Project3 folder.
@@ -7,6 +14,8 @@ BUILD AND RUN INSTRUCTIONS
 5. Copy all the contents in the Extractables folder at the root and paste it in your desired build output folder.
 6. Open the Game_Server.exe to run the server.
 7. Open upto 4 Game_Client.exe to connect to the server.
+
+VIDEO LINK : https://youtu.be/ZidGrxs3H0E
 
 USER INPUTS : 
 
