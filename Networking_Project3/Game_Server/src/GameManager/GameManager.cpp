@@ -1,5 +1,4 @@
 #include "GameManager.h"
-#include "../Player/PlayerManager.h"
 
 glm::vec3 GameManager::position[4] = {
 	glm::vec3(-1,0,0),
@@ -25,10 +24,22 @@ void GameManager::AddPlayer(int id)
 	Player* player = PlayerManager::GetInstance().CreatePlayer();
 	player->GetTransform()->SetPosition(position[currentPlayerCount]);
 	player->model->meshes[0]->material->AsMaterial()->SetBaseColor(colors[currentPlayerCount]);
+	player->clientID = id;
+	player->spawnPos = position[currentPlayerCount];
+	player->OnBulletHit = [this](int id)
+		{
+			OnPlayerDestroy(id);
+		};
 
 	listOfPlayers[id] = player;
 
 	currentPlayerCount++;
+}
+
+void GameManager::OnPlayerDestroy(int clientId)
+{
+	listOfPlayers[clientId]->model->isActive = false;
+	listOfPlayers[clientId]->isActive = false;
 }
 
 void GameManager::Start()

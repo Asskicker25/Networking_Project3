@@ -1,4 +1,5 @@
 #include "Bullet.h"
+#include "../Player/Player.h"
 
 Bullet::Bullet()
 {
@@ -18,8 +19,11 @@ void Bullet::CreateInstance(Model& model)
 
 			if (entity->tag == "Player")
 			{
+				Player* player = (Player*)entity;
+
 				Destroy();
-				OnBulletDestroy();
+
+				OnBulletDestroy(player->clientID);
 
 				return;
 			}

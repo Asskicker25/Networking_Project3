@@ -9,6 +9,11 @@ class Player : public GameObject
 {
 public:
 
+	int clientID = -1;
+	bool isActive = true;
+
+	glm::vec3 spawnPos = glm::vec3(0);
+
 	Bullet* bullet = nullptr;
 
 	Player();
@@ -17,6 +22,9 @@ public:
 	Transform* GetTransform() override;
 
 	void UpdateInput(const InputAction& action, const PlayerInput& input);
+
+	std::function<void(int)> OnBulletHit;
+
 
 private:
 
@@ -30,7 +38,7 @@ private:
 
 	glm::vec3 currentVelocity;
 
-	void OnBulletDestroy();
+	void OnBulletDestroy(int clientID);
 
 
 	// Inherited via GameObject

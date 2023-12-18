@@ -12,7 +12,7 @@ public:
 	void CreateInstance(Model& model);
 	Transform* GetTransform() override;
 
-	std::function<void()> OnBulletDestroy;
+	std::function<void(int)> OnBulletDestroy;
 private:
 
 	// Inherited via GameObject

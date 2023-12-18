@@ -23,6 +23,18 @@ Transform* Player::GetTransform()
 void Player::UpdateInput(const InputAction& action, const PlayerInput& input)
 {
 
+	if (!isActive)
+	{
+		if (input == FIRE)
+		{
+			model->transform.SetPosition(spawnPos);
+			isActive = true;
+			model->isActive = true;
+		}
+
+		return;
+	}
+
 #pragma region PRESSED
 
 	glm::vec3 forward = model->transform.GetForward();
@@ -77,9 +89,9 @@ void Player::UpdateInput(const InputAction& action, const PlayerInput& input)
 			if (bulletSpawned) return;
 
 			bullet = BulletManager::GetInstance().CreateBullet(pos, forward, bulletSpawnOffset);
-			bullet->OnBulletDestroy = [this]()
+			bullet->OnBulletDestroy = [this](int clientId)
 				{
-					OnBulletDestroy();
+					OnBulletDestroy(clientId);
 				};
 
 			bulletSpawned = true;
@@ -115,10 +127,12 @@ void Player::UpdateInput(const InputAction& action, const PlayerInput& input)
 
 }
 
-void Player::OnBulletDestroy()
+void Player::OnBulletDestroy(int clientId)
 {
 	bullet = nullptr;
 	bulletSpawned = false;
+
+	OnBulletHit(clientId);
 }
 
 void Player::Start()

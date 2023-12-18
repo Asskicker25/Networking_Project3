@@ -70,6 +70,7 @@ void NetworkManager::OnCommandRecv(int id, Multiplayer::CommandAndData commandDa
 void NetworkManager::UpdateGameObjectValue(Player* gameObject, const  Multiplayer::Player& player,
 	const Multiplayer::Bullet& bullet)
 {
+	gameObject->model->isActive = player.state() == 0 ? true : false;
 	gameObject->model->transform.SetPosition(GetGlmVector3(player.position()));
 	gameObject->model->transform.SetRotation(GetGlmVector3(player.rotation()));
 	gameObject->phyObj->velocity = GetGlmVector3(player.rotation());

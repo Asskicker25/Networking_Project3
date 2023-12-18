@@ -58,7 +58,7 @@ void NetworkManager::OnClientConnected(int id)
 void NetworkManager::BroadcastToClients()
 {
 
-	std::unordered_map<int, GameObject*>::iterator it;
+	std::unordered_map<int, Player*>::iterator it;
 
 	gameScene.clear_bullets();
 
@@ -68,7 +68,7 @@ void NetworkManager::BroadcastToClients()
 		Multiplayer::Player* player = listOfPlayers[it->first];
 		Multiplayer::Bullet* bullet = gameScene.add_bullets();
 
-		player->set_state(0);
+		player->set_state(it->second->model->isActive ? 0 : 1);
 		player->set_clientid(it->first);
 		player->set_allocated_position((GetVector3(it->second->model->transform.position)));
 		player->set_allocated_rotation((GetVector3(it->second->model->transform.rotation)));
@@ -111,7 +111,7 @@ void NetworkManager::OnCommandRecv(int id, Multiplayer::CommandAndData commandDa
 
 	obj->UpdateInput((InputAction)input.action(), (PlayerInput)input.input());
 
-	std::cout << input.input() << std::endl;
+	//std::cout << input.input() << std::endl;
 
 }
 
